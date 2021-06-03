@@ -14,7 +14,7 @@ function App() {
     <HashRouter>
         <div>
           <div className="image-nav">
-            <img alt="Tyler Headshot" className="circular--square center" src="/headshot2.jpg" />
+            <img alt="Tyler Headshot" className="circular--square center" src="/headshot.png" />
             <h1 className="center">Tyler Chang</h1>
           </div>
           <hr></hr>

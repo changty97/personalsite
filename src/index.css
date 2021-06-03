@@ -8,9 +8,9 @@ body, html {
   padding: 0;
   /* font-family: "Helvetica", sans-serif; */
   color: white;
-  background: #141E30;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #243B55, #141E30);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #243B55, #141E30); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: #9dabba;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #68859a, #9dabba);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #68859a, #9dabba); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 h1, h2, p {
@@ -139,6 +139,11 @@ a:hover {
   color: #FFD700;
 }
 
+.pats {
+  width: 30%;
+  margin: 5px;
+}
+
 @media screen and (max-width: 600px) {
   .topnav a {
     margin: 0 50px 0 20px;
@@ -146,7 +151,7 @@ a:hover {
 }
 
 @media screen and (max-width: 830px) {
-  .resume {
+  .resume, .pats {
     width: 100%;
   }
 }
