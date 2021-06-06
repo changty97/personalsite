@@ -23,9 +23,9 @@ function App() {
               <li><NavLink to="/">HOME</NavLink></li>
               <li><NavLink to="/resume">RESUME</NavLink></li>
               <li><NavLink to="/projects">PROJECTS</NavLink></li>
-              <li><a href="https://github.com/changty97" class="fa fa-github"> </a></li>
-              <li><a href="https://www.linkedin.com/in/tyler-chang" class="fa fa-linkedin"> </a></li>
-              <li><a href="mailto: chang.ty97@gmail.com" class="fa fa-google"> </a></li>
+              <li><a href="https://github.com/changty97" className="fa fa-github"> </a></li>
+              <li><a href="https://www.linkedin.com/in/tyler-chang" className="fa fa-linkedin"> </a></li>
+              <li><a href="mailto: chang.ty97@gmail.com" className="fa fa-google"> </a></li>
             </ul>
           </div>
           <div className="content">
