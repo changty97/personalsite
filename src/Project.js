@@ -21,9 +21,9 @@ class Project extends Component {
                     <p style={{textAlign:'left'}}>
                         Lead software development as part of high school senior project (Spring 2016). Designed a tracking wrist watch that allows hospital staff to keep track of patients.
                     </p>
-                    <img alt="PATS #1" src="/pats1.jpg" className="pats"></img>
-                    <img alt="PATS #2" src="/pats2.jpg" className="pats"></img>
-                    <img alt="PATS #3" src="/pats3.jpg" className="pats"></img>
+                    <img alt="PATS #1" src="/pats1.JPG" className="pats"></img>
+                    <img alt="PATS #2" src="/pats2.JPG" className="pats"></img>
+                    <img alt="PATS #3" src="/pats3.JPG" className="pats"></img>
                     <br></br>
                 <h3>CSC 174 Database Project</h3>
                     <p style={{textAlign:'left'}}>
