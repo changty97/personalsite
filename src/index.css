@@ -1,12 +1,12 @@
 body, html {
   margin: 0;
-  font-family: 'Abel';
+  /* font-family: 'Abel'; */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   height: 100%;
   margin: 0;
   padding: 0;
-  /* font-family: "Helvetica", sans-serif; */
+  font-family: sans-serif;
   color: white;
   background: #9dabba;  /* fallback for old browsers */
   background: -webkit-linear-gradient(to right, #68859a, #9dabba);  /* Chrome 10-25, Safari 5.1-6 */
@@ -15,12 +15,8 @@ body, html {
 
 h1, h2, p {
   text-align: center;
-  font-family: 'Abel';
 }
 
-h3 {
-  font-family: 'Abel';
-}
 
 footer {
   /* background-color: #333333; */
