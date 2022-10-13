@@ -41,5 +41,5 @@ jobs:
     needs: add-reviewers
     steps:
       - uses: actions/checkout@v2
-      - name: Check Required Approval
+        name: Check Required Approval
         run: echo "Approved - you may now merge your Pull Request."
