@@ -26,14 +26,14 @@ jobs:
       - name: Add Reviewers
         run: echo "Adding team as reviewers"
   add-required-reviewer:
-    if: ${{ github.event.review.state == 'approved' && github.event.review.user != 'changtyler' }}
+    if: ${{ github.event.review.state == 'approved' && github.event.review.user != 'changtyler' && github.event.pull_request.head.repo.owner.login != 'changtyler' }}
     runs-on: ubuntu-latest
     needs: [ add-reviewers, check-required-approval ]
     steps:
       - name: Add Required Reviewer
         run: echo "Adding a required reviewer"
   check-required-approval:
-    if: ${{ github.event.review.state == 'approved' && github.event.review.user == 'changtyler' }}
+    if: ${{ github.event.review.state == 'approved' && github.event.review.user == 'changtyler' && github.event.pull_request.head.repo.owner.login != 'changtyler' }}
     runs-on: ubuntu-latest
     needs: add-reviewers
     steps:
