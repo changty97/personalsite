@@ -32,6 +32,8 @@ jobs:
     steps:
       - name: Add Required Reviewer
         run: echo "Adding a required reviewer"
+      - name: Fail
+        run: exit 1
   check-required-approval:
     if: ${{ github.event.review.state == 'approved' && github.event.review.user == 'changtyler' && github.event.pull_request.head.repo.owner.login != 'changtyler' }}
     runs-on: ubuntu-latest
