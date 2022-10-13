@@ -17,29 +17,25 @@ jobs:
   make-lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-        name: Lint
+      - name: Lint
         run: echo "make lint"
   add-reviewers:
     runs-on: ubuntu-latest
     needs: make-lint
     steps:
-      - uses: actions/checkout@v2
-        name: Add Reviewers
+      - name: Add Reviewers
         run: echo "Adding team as reviewers"
   add-required-reviewer:
     if: ${{ github.event.review.state == 'approved' && github.event.pull_request.head.repo.owner.login != 'changty97' }}
     runs-on: ubuntu-latest
     needs: [ add-reviewers, check-required-approval ]
     steps:
-      - uses: actions/checkout@v2
-        name: Add Required Reviewer
+      - name: Add Required Reviewer
         run: echo "Adding a required reviewer"
   check-required-approval:
     if: ${{ github.event.review.state == 'approved' && github.event.review.user == 'changty97' && github.event.pull_request.head.repo.owner.login != 'changty97' }}
     runs-on: ubuntu-latest
     needs: add-reviewers
     steps:
-      - uses: actions/checkout@v2
-        name: Check Required Approval
+      - name: Check Required Approval
         run: echo "Approved - you may now merge your Pull Request."
