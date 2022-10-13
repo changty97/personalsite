@@ -18,9 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-      - name: Lint
+        name: Lint
         run: echo "make lint"
   add-reviewers:
     runs-on: ubuntu-latest
