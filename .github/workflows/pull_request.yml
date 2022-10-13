@@ -33,9 +33,9 @@ jobs:
       - name: Add Required Reviewer
         run: echo "Adding a required reviewer"
   check-passing-job:
-    if: ${{ needs.add-required-reviewer.result == 'success' }}
+    if: ${{ needs.check-required-approval.result == 'skipped' }}
     runs-on: ubuntu-latest
-    needs: add-required-reviewer
+    needs: check-required-approval
     steps:
       - name: Do Not Merge
         run: exit 1
