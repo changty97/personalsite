@@ -36,21 +36,25 @@ jobs:
       - name: Add Required Reviewer
         run: echo "Adding a required reviewer"
   check-required-approval:
-    if: ${{ github.event.review.state == 'approved' && github.event.review.user == 'changtyler' && github.event.pull_request.head.repo.owner.login != 'changtyler' }}
     runs-on: ubuntu-latest
     needs: add-reviewers
     steps:
       - name: Check Required Approval
+        if: ${{ github.event.review.state == 'approved' && github.event.review.user == 'changtyler' && github.event.pull_request.head.repo.owner.login != 'changtyler' }}
         id: approval
         run: echo "Approved - you may now merge your Pull Request."
-  check-passing-job:
-    runs-on: ubuntu-latest
-    needs: [ add-required-reviewer, check-required-approval ]
-    if: ${{ always() && needs.add-required-reviewer.result != 'failure' && needs.check-required-approval.result != 'failure' || needs.check-required-approval.result == 'skipped' }}
-    steps:
-      - name: Merge
-        if: ${{ env.CAN_MERGE == true }}
-        run: exit 0
-      - name: Do Not Merge
-        if: ${{ env.CAN_MERGE == false }}
-        run: exit 1
+#         ; ${{ env.CAN_MERGE = true }}
+      - name: Skipped
+        if: steps.approval.outcome == 'skipped'
+        run: echo "Skipped because PR requires approvals."; exit 1
+#   check-passing-job:
+#     runs-on: ubuntu-latest
+#     needs: [ add-required-reviewer, check-required-approval ]
+#     if: ${{ needs.add-required-reviewer.result != 'failure' && needs.check-required-approval.result == 'failure' }}
+#     steps:
+#       - name: Merge
+#         if: ${{ env.CAN_MERGE == true }}
+#         run: exit 0
+#       - name: Do Not Merge
+#         if: ${{ env.CAN_MERGE == false }}
+#         run: exit 1
