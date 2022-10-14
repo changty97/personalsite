@@ -47,21 +47,22 @@ jobs:
         
       - name: Skipped
         if: steps.approval.outcome == 'skipped' && ${{ env.CONTINUE_ON_ERROR == false }}
-        env:
-          GITHUB_RUN_ID: ${{ github.run_id }}
-        run: echo "Skipped because PR requires approvals."; echo ${{ env.GITHUB_RUN_ID }}; echo ${{ github.job }}; #exit 1
+#         env:
+#           GITHUB_RUN_ID: ${{ github.run_id }}
+        run: echo "Skipped because PR requires approvals."; exit 1
+        # echo ${{ env.GITHUB_RUN_ID }}; echo ${{ github.job }}; 
         
 #       - id: timestamp
 #         run: echo "::set-output name=timestamp::$(timestamp +%s)"
         
-      - name: Pass
+#       - name: Pass
 #         if: steps.approval.outcome == 'failed' && ${{ env.GITHUB_FAILED_JOB_ID != none }}
-        run: |
-          curl \
-          -X POST \
-          -H "Accept: application/vnd.github+json" \
-          -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
-          https://api.github.com/repos/${{ github.repository_owner }}/${{ github.repository }}/actions/jobs/5337389092/rerun
+#         run: |
+#           curl \
+#           -X POST \
+#           -H "Accept: application/vnd.github+json" \
+#           -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+#           https://api.github.com/repos/${{ github.repository_owner }}/${{ github.repository }}/actions/jobs/5337389092/rerun
 #       - name: Restore the previous run result
 #         uses: actions/cache@v2 
 #         with:
