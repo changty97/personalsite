@@ -48,7 +48,7 @@ jobs:
 #     steps:
       
   check-passing-job:
-    if: ${{ jobs.add-required-reviewer.result == 'skipped' }}
+    if: ${{ needs.add-required-reviewer.result == 'skipped' }}
     runs-on: ubuntu-latest
     needs: add-required-reviewer
     steps:
