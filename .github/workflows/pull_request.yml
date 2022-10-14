@@ -33,9 +33,9 @@ jobs:
     needs: add-reviewers
     steps:
       - name: PWD
-        run: pwd
+        run: cat .github/require_reviewers.txt
       - name: Get Required Reviewers
-        run: echo ::set-output name=reviewers::$(cat ./.github/require_reviewers.txt)
+        run: echo ::set-output name=reviewers::$(cat .github/require_reviewers.txt)
   add-required-reviewer:
     if: |
       github.event.review.state == 'approved' && 
