@@ -34,7 +34,7 @@ jobs:
     needs: add-reviewers
     steps:
       - name: Number of requested reviewers
-        run: echo ${{ github.event.pull_request.requested_reviewers }}
+        run: echo '${{ toJson(github.event.pull_request.requested_reviewers) }}' | jq '. | length'
       - name: Add Required Reviewer
         run: echo "Adding a required reviewer"
       - name: Do Not Merge
