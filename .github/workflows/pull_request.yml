@@ -49,8 +49,8 @@ jobs:
     needs: [ add-required-reviewer, check-required-approval ]
     steps:
       - name: Merge
-        if: CAN_MERGE == true
+        if: ${{ env.CAN_MERGE == true }}
         run: exit 0
       - name: Do Not Merge
-        if: CAN_MERGE == false
+        if: ${{ env.CAN_MERGE == false }}
         run: exit 1
