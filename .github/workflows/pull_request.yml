@@ -48,7 +48,7 @@ jobs:
         
       - name: Skipped
         if: steps.approval.outcome == 'skipped' && ${{ env.CONTINUE_ON_ERROR == false }}
-        run: echo "Skipped because PR requires approvals."; ${{ env.GITHUB_FAILED_JOB_ID = github.run_id }}; echo github.job
+        run: echo "Skipped because PR requires approvals."; ${{ env.GITHUB_FAILED_JOB_ID }} = github.run_id; echo github.job
         
 #       - id: timestamp
 #         run: echo "::set-output name=timestamp::$(timestamp +%s)"
