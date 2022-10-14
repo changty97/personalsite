@@ -15,7 +15,6 @@ on:
     
 env:
   CONTINUE_ON_ERROR: false
-  GITHUB_RUN_ID: ${{ github.run_id }}
 
 jobs:
   make-lint:
@@ -48,7 +47,9 @@ jobs:
         
       - name: Skipped
         if: steps.approval.outcome == 'skipped' && ${{ env.CONTINUE_ON_ERROR == false }}
-        run: echo "Skipped because PR requires approvals."; echo ${{ env.GITHUB_RUN_ID }}; echo ${{ github.job }}; $GITHUB_FAILED_JOB_ID = ${{ env.GITHUB_RUN_ID }}; echo $GITHUB_FAILED_JOB_ID
+        env:
+          GITHUB_RUN_ID: ${{ github.run_id }}
+        run: echo "Skipped because PR requires approvals."; echo ${{ env.GITHUB_RUN_ID }}; echo ${{ github.job }}; #exit 1
         
 #       - id: timestamp
 #         run: echo "::set-output name=timestamp::$(timestamp +%s)"
