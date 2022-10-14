@@ -44,9 +44,9 @@ jobs:
         id: approval
         run: echo "Approved - you may now merge your Pull Request."
   check-passing-job:
-    if: ${{ needs.add-required-reviewer.result != 'failure' && needs.check-required-approval.result != 'failure' || check-required-approval.result == 'skipped' }}
     runs-on: ubuntu-latest
     needs: [ add-required-reviewer, check-required-approval ]
+    if: ${{ needs.add-required-reviewer.result != 'failure' && needs.check-required-approval.result != 'failure' || needs.check-required-approval.result == 'skipped' }}
     steps:
       - name: Merge
         if: ${{ env.CAN_MERGE == true }}
