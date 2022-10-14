@@ -24,7 +24,7 @@ jobs:
     needs: make-lint
     steps:
       - name: Add Reviewers
-        run: echo "Adding team as reviewers"; echo ${{ github.event.pull_request.head.repo.owner.login }}
+        run: echo "Adding team as reviewers"; echo ${{ github.event.pull_request.user.login }}
   add-required-reviewer:
     if: github.event.review.state == 'approved' && github.actor != 'changtyler' && github.event.pull_request.head.repo.owner.login != 'changtyler'
     runs-on: ubuntu-latest
