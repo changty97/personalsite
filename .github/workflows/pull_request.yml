@@ -12,9 +12,14 @@ on:
   pull_request_review:
     branches:
     - main
+    inputs:
+      continue-on-error:
+        type: string
+        required: false
+        default: false
     
 env:
-  CAN_PASS: false
+  CONTINUE_ON_ERROR: ${{ inputs.continue-on-error }}
 
 jobs:
   make-lint:
@@ -45,5 +50,5 @@ jobs:
         run: echo "Approved - you may now merge your Pull Request."
       - name: Skipped
         if: steps.approval.outcome == 'skipped' && github.event_name == 'pull_request_review'
-        continue-on-error: ${{ fromJSON(env.CAN_PASS) }}
+        continue-on-error: ${{ fromJSON(env.CONTINUE_ON_ERROR) }}
         run: echo "Skipped because PR requires approvals."; exit 1
