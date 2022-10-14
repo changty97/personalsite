@@ -13,8 +13,8 @@ on:
     branches:
     - main
 
-# env:
-#   requested_reviewers: ${{ toJson(github.event.pull_request.requested_reviewers) }}
+env:
+  CAN_MERGE: false
 
 jobs:
   make-lint:
@@ -35,26 +35,22 @@ jobs:
     steps:
       - name: Add Required Reviewer
         run: echo "Adding a required reviewer"
-#       - name: Do Not Merge
-#         run: exit 1
   check-required-approval:
-    if: ${{ github.event.review.state == 'approved' && github.event.pull_request.head.repo.owner.login != 'changtyler' }}
+    if: ${{ github.event.review.state == 'approved' && github.event.review.user == 'changtyler' && github.event.pull_request.head.repo.owner.login != 'changtyler' }}
     runs-on: ubuntu-latest
     needs: add-reviewers
     steps:
       - name: Check Required Approval
-        if: github.event.review.user == 'changtyler'
         id: approval
         run: echo "Approved - you may now merge your Pull Request."
-      - name: Do Not Merge
-        if: steps.approval.outputs.status == 'skipped'
-        run: exit 1
   check-passing-job:
-#     if: ${{ needs.add-required-reviewer.result == 'skipped' }}
+    if: ${{ needs.add-required-reviewer.result != 'failure' && needs.check-required-approval.result != 'failure' }}
     runs-on: ubuntu-latest
-    needs: add-required-reviewer
+    needs: [ add-required-reviewer, check-required-approval ]
     steps:
-      - name: Number of requested reviewers
-        run: echo '${{ toJson(github.event.pull_request.requested_reviewers) }}' | jq '. | length'
+      - name: Merge
+        if: $CAN_MERGE == true
+        run: exit 0
       - name: Do Not Merge
+        if: $CAN_MERGE == false
         run: exit 1
