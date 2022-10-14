@@ -34,7 +34,7 @@ jobs:
     needs: add-reviewers
     steps:
       - name: Add Required Reviewer
-        run: echo "Adding a required reviewer"
+        run: echo "Adding a required reviewer - "; echo ${{ github.event.review.user }}
   check-required-approval:
     runs-on: ubuntu-latest
     needs: add-reviewers
