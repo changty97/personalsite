@@ -35,7 +35,7 @@ jobs:
       - name: PWD
         run: pwd
       - name: Get Required Reviewers
-        run: echo ::set-output name=reviewers::$(cat .github/require_reviewers.txt)
+        run: echo ::set-output name=reviewers::$(cat ./.github/require_reviewers.txt)
   add-required-reviewer:
     if: |
       github.event.review.state == 'approved' && 
