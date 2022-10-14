@@ -47,7 +47,7 @@ jobs:
     needs: [ add-reviewers, get-required-reviewers ]
     steps:
       - name: Add Required Reviewer
-        run: echo "Adding a required reviewer - "; echo ${{ needs.get-required-reviewers.outputs.output1 }}; echo contains(github.event.pull_request.user.login, fromJson(${{ needs.get-required-reviewers.outputs.output1 }}))
+        run: echo "Adding a required reviewer - "; echo ${{ needs.get-required-reviewers.outputs.output1 }}; echo ${{ contains(github.event.pull_request.user.login, fromJson(needs.get-required-reviewers.outputs.output1)) }}
   check-required-approval:
     if: |
       github.event_name == 'pull_request_review' && 
