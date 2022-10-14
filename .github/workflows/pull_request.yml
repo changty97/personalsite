@@ -46,6 +46,7 @@ jobs:
 #         ; ${{ env.CAN_MERGE = true }}
       - name: Skipped
         if: steps.approval.outcome == 'skipped'
+        continue-on-error: true
         run: echo "Skipped because PR requires approvals."; exit 1
 #   check-passing-job:
 #     runs-on: ubuntu-latest
