@@ -44,5 +44,3 @@ jobs:
       - name: Skipped
         if: steps.approval.outcome == 'skipped'
         run: echo "Skipped because PR requires approvals."; echo ${{ steps.approval.outcome }}; exit 1
-        # echo ${{ env.GITHUB_RUN_ID }}; echo ${{ github.job }}; 
-
