@@ -12,14 +12,9 @@ on:
   pull_request_review:
     branches:
     - main
-    inputs:
-      continue-on-error:
-        type: string
-        required: false
-        default: false
     
 env:
-  CONTINUE_ON_ERROR: ${{ inputs.continue-on-error }}
+  CONTINUE_ON_ERROR: false
 
 jobs:
   make-lint:
@@ -32,7 +27,10 @@ jobs:
     needs: make-lint
     steps:
       - name: Add Reviewers
-        run: echo "Adding team as reviewers"; echo ${{ fromJSON(env.CONTINUE_ON_ERROR) }}
+        run: echo "Adding team as reviewers"; echo ${{ env.CONTINUE_ON_ERROR }}
+      - name: check env
+        if: ${{ env.CONTINUE_ON_ERROR }} == false
+        run: echo ${{ env.CONTINUE_ON_ERROR }}
   add-required-reviewer:
     if: ${{ github.event.review.state == 'approved' && github.actor != 'changtyler' && github.event.pull_request.head.repo.owner.login != 'changtyler' }}
     runs-on: ubuntu-latest
