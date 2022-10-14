@@ -37,8 +37,8 @@ jobs:
   add-required-reviewer:
     if: |
       github.event.review.state == 'approved' && 
-      !contains(github.actor, ${{ needs.get-required-reviewers.outputs.reviewers }}) && 
-      !contains(github.event.pull_request.user.login, ${{ needs.get-required-reviewers.outputs.reviewers }})
+      contains(github.actor, ${{ needs.get-required-reviewers.outputs.reviewers }})  == false && 
+      contains(github.event.pull_request.user.login, ${{ needs.get-required-reviewers.outputs.reviewers }})  == false
     runs-on: ubuntu-latest
     needs: [ add-reviewers, get-required-reviewers ]
     steps:
@@ -47,12 +47,12 @@ jobs:
   check-required-approval:
     if: |
       github.event_name == 'pull_request_review' && 
-      !contains(github.event.pull_request.user.login, ${{ needs.get-required-reviewers.outputs.reviewers }})
+      contains(github.event.pull_request.user.login, ${{ needs.get-required-reviewers.outputs.reviewers }})  == false
     runs-on: ubuntu-latest
     needs: [ add-reviewers, get-required-reviewers ]
     steps:
       - name: Check Required Approval
-        if: github.event.review.state == 'approved' && contains(github.actor, ${{ needs.get-required-reviewers.outputs.reviewers }})
+        if: github.event.review.state == 'approved' && contains(github.actor, ${{ needs.get-required-reviewers.outputs.reviewers }})  == true
         id: approval
         run: echo "Approved - you may now merge your Pull Request."; exit 0
       - name: Skipped
