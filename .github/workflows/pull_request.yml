@@ -15,6 +15,7 @@ on:
     
 env:
   CONTINUE_ON_ERROR: false
+  GITHUB_FAILED_JOB_ID: none
 
 jobs:
   make-lint:
@@ -44,34 +45,38 @@ jobs:
         if: ${{ github.event.review.state == 'approved' && github.actor == 'changtyler' && github.event.pull_request.head.repo.owner.login != 'changtyler' }}
         id: approval
         run: echo "Approved - you may now merge your Pull Request."
+        
       - name: Skipped
         if: steps.approval.outcome == 'skipped' && ${{ env.CONTINUE_ON_ERROR == false }}
-        run: echo "Skipped because PR requires approvals."; exit 1
-      - id: timestamp
-        run: echo "::set-output name=timestamp::$(timestamp +%s)"
-#       - name: Pass
-#         if: steps.approval.outcome == 'skipped' && ${{ env.CONTINUE_ON_ERROR == true }}
-#         run: exit 0
-#       - name: Re-run failed test
-#         if: steps.approval.outcome == 'sucess' && ${{ env.CONTINUE_ON_ERROR == false }}
-#         run: exit 0
-      - name: Restore the previous run result
-        uses: actions/cache@v2
-        with:
-          path: |
-            run_result
-          key: ${{ github.run_id }}-${{ github.job }}-${{ steps.timestamp.outputs.timestamp }}
-          restore-keys: |
-            ${{ github.run_id }}-${{ github.job }}-
+        run: echo "Skipped because PR requires approvals."; ${{ env.GITHUB_FAILED_JOB_ID = github.run_id }}; echo github.job
+        
+#       - id: timestamp
+#         run: echo "::set-output name=timestamp::$(timestamp +%s)"
+        
+      - name: Pass
+#         if: steps.approval.outcome == 'failed' && ${{ env.GITHUB_FAILED_JOB_ID != none }}
+        run: |
+          gh api \
+          --method POST \
+          -H "Accept: application/vnd.github+json" \
+          /repos/changty97/personalsite/actions/jobs/5335955476/rerun
+#       - name: Restore the previous run result
+#         uses: actions/cache@v2 
+#         with:
+#           path: |
+#             run_result
+#           key: ${{ github.run_id }}-${{ github.job }}-${{ steps.timestamp.outputs.timestamp }}
+#           restore-keys: |
+#             ${{ github.run_id }}-${{ github.job }}-
       
-      - name: Get the previous run result
-        id: run_result
-        run: cat run_result 2>/dev/null || echo 'default'
+#       - name: Get the previous run result
+#         id: run_result
+#         run: cat run_result 2>/dev/null || echo 'default'
 
-      - uses: actions/checkout@v2
-        if: steps.run_result.outputs.run_result != 'success'
+#       - uses: actions/checkout@v2
+#         if: steps.run_result.outputs.run_result != 'success'
 
-      - if: steps.run_result.outputs.run_result != 'success'
-        run: echo "I'm alive!" && exit 0
+#       - if: steps.run_result.outputs.run_result != 'success'
+#         run: echo "I'm alive!" && exit 0
 
-      - run: echo "::set-output name=run_result::success" > run_result
+#       - run: echo "::set-output name=run_result::success" > run_result
