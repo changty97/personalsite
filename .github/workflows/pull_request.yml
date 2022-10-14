@@ -47,10 +47,10 @@ jobs:
 #     needs: add-reviewers
 #     steps:
       
-  check-passing-job:
-    if: ${{ jobs.check-required-approval.result == 'skipped' }}
-    runs-on: ubuntu-latest
-    needs: add-required-reviewer
-    steps:
-      - name: Do Not Merge
-        run: exit 1
+#   check-passing-job:
+#     if: ${{ jobs.check-required-approval.result == 'skipped' }}
+#     runs-on: ubuntu-latest
+#     needs: add-required-reviewer
+#     steps:
+#       - name: Do Not Merge
+#         run: exit 1
