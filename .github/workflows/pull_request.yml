@@ -51,7 +51,7 @@ jobs:
   check-required-approval:
     if: |
       github.event_name == 'pull_request_review' && 
-      contains($needs.get-required-reviewers.outputs.output1, github.event.pull_request.user.login) == false
+      contains(needs.get-required-reviewers.outputs.output1, github.event.pull_request.user.login) == false
     runs-on: ubuntu-latest
     needs: [ add-reviewers, get-required-reviewers ]
     steps:
