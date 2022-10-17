@@ -37,7 +37,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: Get Required Reviewers
         id: reviewers
-        run: echo ::set-output name=reviewers::$(cat .github/require_reviewers.txt)
+        run: echo reviewers=$(cat .github/require_reviewers.txt)
   add-required-reviewer:
     if: |
       github.event.review.state == 'approved' && 
@@ -47,7 +47,7 @@ jobs:
     needs: [ add-reviewers, get-required-reviewers ]
     steps:
       - name: Add Required Reviewer
-        run: echo "Adding a required reviewer - "; echo ${{ needs.get-required-reviewers.outputs.output1 }}; echo ${{ contains(needs.get-required-reviewers.outputs.output1, github.event.pull_request.user.login )}} 
+        run: echo "Adding a required reviewer - "; echo ${{ needs.get-required-reviewers.outputs.output1 }}; echo ${{ contains(needs.get-required-reviewers.outputs.output1, github.event.pull_request.user.login )}}; echo ${{ github.event.review.state }}
   check-required-approval:
     if: |
       github.event_name == 'pull_request_review' && 
