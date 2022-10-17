@@ -37,7 +37,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: Get Required Reviewers
         id: reviewers
-        run: echo reviewers=$(cat .github/require_reviewers.txt)
+        run: reviewers=$(cat .github/require_reviewers.txt)
   add-required-reviewer:
     if: |
       github.event.review.state == 'approved' && 
