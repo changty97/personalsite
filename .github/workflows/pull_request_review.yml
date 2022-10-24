@@ -7,6 +7,7 @@ on:
 
 jobs:
   add-required-reviewer:
+    if: github.event.review.state == 'approved'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -15,7 +16,6 @@ jobs:
         run: echo ::set-output name=reviewers::$(cat .github/require_reviewers.txt)
       - name: Add Required Reviewer
         if: |
-          github.event.review.state == 'approved' && 
           contains(steps.reviewers.outputs.reviewers, github.actor) == false && 
           contains(steps.reviewers.outputs.reviewers, github.event.pull_request.user.login) == false
         run: echo "Adding a required reviewer - " ${{ needs.get-required-reviewers.outputs.output1 }}
@@ -24,6 +24,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Get Required Reviewers
+        if: github.event.review.state == 'approved'
         id: reviewers
         run: echo ::set-output name=reviewers::$(cat .github/require_reviewers.txt)
       - name: Check Required Approval
