@@ -20,7 +20,7 @@ jobs:
           contains(steps.reviewers.outputs.reviewers, github.event.pull_request.user.login) == false
         run: echo "Adding a required reviewer - " ${{ needs.get-required-reviewers.outputs.output1 }}
       - name: Echo things
-        if: toJSON(github.event.pull_request.requested_reviewers) != '[]'
+#         if: toJSON(github.event.pull_request.requested_reviewers) != '[]'
         run: echo ${{ toJSON(github.event.pull_request.requested_reviewers) }}
   check-required-approval:
     runs-on: ubuntu-latest
