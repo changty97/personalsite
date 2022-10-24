@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Echo things
-        run: echo ${{ toJSON(github.event.pull_request) }}; echo ${{ github.event.pull_request.requested_reviewers }}; echo ${{ github.event.pull_request.ready_for_review }}
+        run: echo ${{ toJSON(github.event.pull_request) }}; echo ${{ toJSON(github.event.pull_request.requested_reviewers) }}; echo ${{ github.event.pull_request.ready_for_review }}
       - uses: actions/checkout@v2
       - name: Get Required Reviewers
         id: reviewers
