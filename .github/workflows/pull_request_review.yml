@@ -10,8 +10,6 @@ jobs:
     if: github.event.review.state == 'approved'
     runs-on: ubuntu-latest
     steps:
-      - name: Echo things
-        run: echo ${{ toJSON(github.event.pull_request) }}; echo ${{ toJSON(github.event.pull_request.requested_reviewers) }}; echo ${{ github.event.pull_request.ready_for_review }}
       - uses: actions/checkout@v2
       - name: Get Required Reviewers
         id: reviewers
@@ -21,6 +19,9 @@ jobs:
           contains(steps.reviewers.outputs.reviewers, github.actor) == false && 
           contains(steps.reviewers.outputs.reviewers, github.event.pull_request.user.login) == false
         run: echo "Adding a required reviewer - " ${{ needs.get-required-reviewers.outputs.output1 }}
+      - name: Echo things
+        if: toJSON(github.event.pull_request.requested_reviewers) != '[]'
+        run: echo ${{ toJSON(github.event.pull_request.requested_reviewers) }}
   check-required-approval:
     runs-on: ubuntu-latest
     steps:
