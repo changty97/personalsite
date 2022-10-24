@@ -1,0 +1,44 @@
+name: Pull Request Review Sumbitted
+
+on:
+  pull_request_review:
+    branches:
+    - main
+    types: submitted
+
+jobs:
+  add-required-reviewer:
+    if: github.event.review.state == 'approved'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Get Required Reviewers
+        id: reviewers
+        run: echo ::set-output name=reviewers::$(cat .github/require_reviewers.txt)
+      - name: Add Required Reviewer
+        if: |
+          contains(steps.reviewers.outputs.reviewers, github.actor) == false && 
+          contains(steps.reviewers.outputs.reviewers, github.event.pull_request.user.login) == false
+        run: echo "Adding a required reviewer - " ${{ needs.get-required-reviewers.outputs.output1 }}
+#       - name: Echo things
+#         if: toJSON(github.event.pull_request.requested_reviewers) != '[]'
+#         run: echo ${{ toJSON(github.event.pull_request.requested_reviewers) }}
+#   check-required-approval:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v2
+#       - name: Get Required Reviewers
+#         if: github.event.review.state == 'approved'
+#         id: reviewers
+#         run: echo ::set-output name=reviewers::$(cat .github/require_reviewers.txt)
+#       - name: Check Required Approval
+#         if: |
+#           contains(steps.reviewers.outputs.reviewers, github.event.pull_request.user.login) == false &&
+#           github.event.review.state == 'approved' && contains(steps.reviewers.outputs.reviewers, github.actor) == true
+#         id: approval
+#         run: echo "Approved - you may now merge your Pull Request."; exit 0
+#       - name: Skipped
+#         if: |
+#           contains(steps.reviewers.outputs.reviewers, github.event.pull_request.user.login) == false && 
+#           steps.approval.outcome == 'skipped'
+#         run: echo "Skipped because PR requires approvals."; echo ${{ steps.approval.outcome }}; exit 1
