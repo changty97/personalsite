@@ -25,16 +25,16 @@ jobs:
     steps:
       - name: Add Reviewers
         run: echo "Adding team as reviewers"
-  get-required-reviewers:
-    runs-on: ubuntu-latest
-    needs: add-reviewers
-    outputs:
-      output1: ${{ steps.reviewers.outputs.reviewers }}
-    steps:
-      - uses: actions/checkout@v2
-      - name: Get Required Reviewers
-        id: reviewers
-        run: echo ::set-output name=reviewers::$(cat .github/require_reviewers.txt)
+#   get-required-reviewers:
+#     runs-on: ubuntu-latest
+#     needs: add-reviewers
+#     outputs:
+#       output1: ${{ steps.reviewers.outputs.reviewers }}
+#     steps:
+#       - uses: actions/checkout@v2
+#       - name: Get Required Reviewers
+#         id: reviewers
+#         run: echo ::set-output name=reviewers::$(cat .github/require_reviewers.txt)
 #   add-required-reviewer:
 #     if: |
 #       github.event.review.state == 'approved' && 
