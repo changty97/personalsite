@@ -22,3 +22,12 @@ jobs:
     steps:
       - name: Add Reviewers
         run: echo "Adding team as reviewers"
+      - uses: actions/checkout@v2
+      - name: Get Required Reviewers
+        id: reviewers
+        run: echo ::set-output name=reviewers::$(cat .github/required_reviewers.txt)
+      - name: Add Required Reviewer
+        if: |
+          contains(steps.reviewers.outputs.reviewers, github.actor) == false && 
+          contains(steps.reviewers.outputs.reviewers, github.event.pull_request.user.login) == false
+        run: echo "Adding a required reviewer - " ${{steps.reviewers.outputs.reviewers}}
