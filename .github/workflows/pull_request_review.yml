@@ -12,23 +12,23 @@ jobs:
   add-required-reviewer:
     if: |
       github.event.review.state == 'approved' &&
-      contains($REQ_REVIEWER, github.actor) == false && 
-      contains($REQ_REVIEWER, github.event.pull_request.user.login) == false
+      contains(${{REQ_REVIEWER}}, github.actor) == false && 
+      contains(${{REQ_REVIEWER}}, github.event.pull_request.user.login) == false
     runs-on: ubuntu-latest
     steps:
       - name: Add Required Reviewer
-        run: echo "Adding a required reviewer - " $REQ_REVIEWER
+        run: echo "Adding a required reviewer - " ${{REQ_REVIEWER}}
   check-required-approval:
     runs-on: ubuntu-latest
     steps:
       - name: Check Required Approval
         if: |
-          contains($REQ_REVIEWER, github.event.pull_request.user.login) == false &&
-          github.event.review.state == 'approved' && contains($REQ_REVIEWER, github.actor) == true
+          contains(${{REQ_REVIEWER}}, github.event.pull_request.user.login) == false &&
+          github.event.review.state == 'approved' && contains(${{REQ_REVIEWER}}, github.actor) == true
         id: approval
         run: echo "Approved - you may now merge your Pull Request."; exit 0
       - name: Skipped
         if: |
-          contains($REQ_REVIEWER, github.event.pull_request.user.login) == false && 
+          contains(${{REQ_REVIEWER}}, github.event.pull_request.user.login) == false && 
           steps.approval.outcome == 'skipped'
         run: echo "Skipped because PR requires approvals."; echo ${{ steps.approval.outcome }}; exit 1
