@@ -17,7 +17,7 @@ jobs:
         run: echo ::set-output name=reviewers::$(cat .github/required_reviewers.txt)
       - name: Add Required Reviewe
         if: |
-          contains(steps.reviewers.output.reviewers, github.actor) == false && 
-          contains(steps.reviewers.output.reviewers, github.event.pull_request.user.login) == false
+          contains(steps.reviewers.outputs.reviewers, github.actor) == false && 
+          contains(steps.reviewers.outputs.reviewers, github.event.pull_request.user.login) == false
         run: echo "Adding a required reviewer - " ${{secrets.REQ_REVIEWER}}
  
