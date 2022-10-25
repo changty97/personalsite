@@ -1,23 +1,23 @@
-# name: Pull Request Review Target
+name: Pull Request Review Target
 
-# on:
-#   pull_request_target:
-#     branches:
-#     - main
-#     types:
-#     - ready_for_review
+on:
+  pull_request_target:
+    branches:
+    - main
+    types:
+    - ready_for_review
 
-# jobs:
-#   add-required-reviewer:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - uses: actions/checkout@v2
-#       - name: Get Required Reviewers
-#         id: reviewers
-#         run: echo ::set-output name=reviewers::$(cat .github/required_reviewers.txt)
-#       - name: Add Required Reviewe
-#         if: |
-#           contains(steps.reviewers.outputs.reviewers, github.actor) == false && 
-#           contains(steps.reviewers.outputs.reviewers, github.event.pull_request.user.login) == false
-#         run: echo "Adding a required reviewer - " ${{secrets.REQ_REVIEWER}}
+jobs:
+  add-required-reviewer:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Get Required Reviewers
+        id: reviewers
+        run: echo ::set-output name=reviewers::$(cat .github/required_reviewers.txt)
+      - name: Add Required Reviewe
+        if: |
+          contains(steps.reviewers.outputs.reviewers, github.actor) == false && 
+          contains(steps.reviewers.outputs.reviewers, github.event.pull_request.user.login) == false
+        run: echo "Adding a required reviewer - " ${{secrets.REQ_REVIEWER}}
  
