@@ -13,7 +13,7 @@ jobs:
       output1: ${{ steps.reviewers.outputs.reviewers }}
     steps:
       - name: echo things
-        run: echo ${{ github.event.action }}; echo ${{ toJSON(github.event.pull_request.user) }}
+        run: echo ${{ toJson(github.event.pull_request.requested_reviewers) }}
       - uses: actions/checkout@v2
       - name: Get Required Reviewers
         id: reviewers
