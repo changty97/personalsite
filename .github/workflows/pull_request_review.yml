@@ -7,35 +7,25 @@ on:
 
 jobs:
   add-required-reviewer:
-    if: github.event.review.state == 'approved'
+    if: |
+      github.event.review.state == 'approved' &&
+      contains(secrets.REQ_REVIEWER, github.actor) == false && 
+      contains(secrets.REQ_REVIEWER, github.event.pull_request.user.login) == false
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Get Required Reviewers
-        id: reviewers
-        run: echo ::set-output name=reviewers::$(cat .github/required_reviewers.txt)
       - name: Add Required Reviewer
-        if: |
-          contains(steps.reviewers.outputs.reviewers, github.actor) == false && 
-          contains(steps.reviewers.outputs.reviewers, github.event.pull_request.user.login) == false
-        run: echo "Adding a required reviewer - " ${{ steps.reviewers.outputs.reviewers }}
-      - name: echo things
-        run: echo "${#github.event.pull_request.requested_reviewers[@]}"; for (( i=0 ; i<=1 ; i++ )); do echo ${{toJson(github.event.pull_request.requested_reviewers[0].login)}}; done
+        run: echo "Adding a required reviewer - " ${{ env.REQ_REVIEWER }}
   check-required-approval:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Get Required Reviewers
-        id: reviewers
-        run: echo ::set-output name=reviewers::$(cat .github/required_reviewers.txt)
       - name: Check Required Approval
         if: |
-          contains(steps.reviewers.outputs.reviewers, github.event.pull_request.user.login) == false &&
-          github.event.review.state == 'approved' && contains(steps.reviewers.outputs.reviewers, github.actor) == true
+          contains(secrets.REQ_REVIEWER, github.event.pull_request.user.login) == false &&
+          github.event.review.state == 'approved' && contains(secrets.REQ_REVIEWER, github.actor) == true
         id: approval
         run: echo "Approved - you may now merge your Pull Request."; exit 0
       - name: Skipped
         if: |
-          contains(steps.reviewers.outputs.reviewers, github.event.pull_request.user.login) == false && 
+          contains(secrets.REQ_REVIEWER, github.event.pull_request.user.login) == false && 
           steps.approval.outcome == 'skipped'
         run: echo "Skipped because PR requires approvals."; echo ${{ steps.approval.outcome }}; exit 1
