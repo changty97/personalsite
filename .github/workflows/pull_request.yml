@@ -9,56 +9,16 @@ on:
     - synchronize
     - reopened
     - edited
-  pull_request_review:
-    branches:
-    - main
 
 jobs:
   make-lint:
-#     if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     steps:
       - name: Lint
         run: echo "make lint"
   add-reviewers:
-#     if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     needs: make-lint
     steps:
       - name: Add Reviewers
         run: echo "Adding team as reviewers"
-  get-required-reviewers:
-#     if: github.event.review.state == 'approved'
-    runs-on: ubuntu-latest
-    needs: add-reviewers
-    outputs:
-      output1: ${{ steps.reviewers.outputs.reviewers }}
-    steps:
-      - uses: actions/checkout@v2
-      - name: Get Required Reviewers
-        id: reviewers
-        run: echo ::set-output name=reviewers::$(cat .github/require_reviewers.txt)
-  add-required-reviewer:
-    if: |
-      github.event.review.state == 'approved' && 
-      contains(needs.get-required-reviewers.outputs.output1, github.actor) == false && 
-      contains(needs.get-required-reviewers.outputs.output1, github.event.pull_request.user.login) == false
-    runs-on: ubuntu-latest
-    needs: [ add-reviewers, get-required-reviewers ]
-    steps:
-      - name: Add Required Reviewer
-        run: echo "Adding a required reviewer - " ${{ needs.get-required-reviewers.outputs.output1 }}; echo ${{ join(needs.get-required-reviewers.outputs.output1, ', ') }}; echo ${{ github.event.review.state }}
-  check-required-approval:
-    if: |
-      github.event_name == 'pull_request_review' && 
-      contains(needs.get-required-reviewers.outputs.output1, github.event.pull_request.user.login) == false
-    runs-on: ubuntu-latest
-    needs: [ add-reviewers, get-required-reviewers ]
-    steps:
-      - name: Check Required Approval
-        if: github.event.review.state == 'approved' && contains(needs.get-required-reviewers.outputs.output1, github.actor) == true
-        id: approval
-        run: echo "Approved - you may now merge your Pull Request."; exit 0
-      - name: Skipped
-        if: steps.approval.outcome == 'skipped'
-        run: echo "Skipped because PR requires approvals."; echo ${{ steps.approval.outcome }}; exit 1
