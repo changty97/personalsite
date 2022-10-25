@@ -13,8 +13,8 @@ jobs:
     if: github.event.review.state == 'approved'
     runs-on: ubuntu-latest
     steps:
-      - name: echo things
-        run: echo ${{ toJson(github.event.pull_request.requested_reviewers) }}
+#       - name: echo things
+#         run: echo ${{ toJson(github.event.pull_request.requested_reviewers) }}
       - uses: actions/checkout@v2
       - name: Get Required Reviewers
         id: reviewers
