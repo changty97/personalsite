@@ -10,10 +10,10 @@ jobs:
     if: github.event.review.state == 'approved'
     runs-on: ubuntu-latest
     outputs:
-      output1: ${{ steps.reviewers.outputs.reviewers }}; echo ${{ github.event.pull_request.user }}
+      output1: ${{ steps.reviewers.outputs.reviewers }}
     steps:
       - name: echo things
-        run: echo ${{ github.event.action }}
+        run: echo ${{ github.event.action }}; echo ${{ github.event.pull_request.user }}
       - uses: actions/checkout@v2
       - name: Get Required Reviewers
         id: reviewers
