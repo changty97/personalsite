@@ -5,14 +5,19 @@ on:
     branches:
     - main
     types:
-    - opened
     - ready_for_review
-    - review_requested
 
 jobs:
   add-required-reviewer:
     runs-on: ubuntu-latest
     steps:
-      - name: Echo something
-        run: echo "Pull Request Review Target" 
+      - uses: actions/checkout@v2
+      - name: Get Required Reviewers
+        id: reviewers
+        run: echo ::set-output name=reviewers::$(cat .github/required_reviewers.txt)
+      - name: Add Required Reviewe
+        if: |
+          contains(steps.reviewers.output.reviewers, github.actor) == false && 
+          contains(steps.reviewers.output.reviewers, github.event.pull_request.user.login) == false
+        run: echo "Adding a required reviewer - " ${{secrets.REQ_REVIEWER}}
  
