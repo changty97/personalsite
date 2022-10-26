@@ -1,4 +1,4 @@
-name: Pull Request Target
+name: Pull Request Lint
 
 on:
   pull_request:
