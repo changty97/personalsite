@@ -9,11 +9,6 @@ on:
     - ready_for_review
 
 jobs:
-  add-reviewers:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Add Reviewers
-        run: echo "Adding team as reviewers"
   add-required-reviewer:
     runs-on: ubuntu-latest
     steps:
