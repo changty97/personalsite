@@ -16,7 +16,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: Get Required Reviewers
         id: reviewers
-        run: reviewers=$(cat .github/required_reviewers.txt)
+        run: echo "reviewers=$(cat .github/required_reviewers.txt)" >> $GITHUB_OUTPUT
       - name: Echo Required Reviewer
         run: echo ${{steps.reviewers.outputs.reviewers}}
 
