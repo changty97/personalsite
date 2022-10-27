@@ -1,0 +1,13 @@
+name: PR Lint
+
+on:
+  pull_request:
+    branches:
+    - main
+    
+jobs:
+  make-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Add Required Reviewe
+        run: echo "make lint"
