@@ -4,9 +4,9 @@ on:
   push:
     branches:
     - main
-  pull_request:
-    branches:
-    - main
+#   pull_request:
+#     branches:
+#     - main
     
 jobs:
   make-lint:
@@ -14,4 +14,3 @@ jobs:
     steps:
       - name: Add Required Reviewe
         run: echo "make lint"
- 
