@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name : Check Title of PR
-      if: startsWith(github.event.pull_request.title, 'OVD')
+      if: startsWith(github.event.pull_request.title, fromJson('['OVD']'))
       id: pr_title
       run: echo The Title of your PR is ${{ github.event.pull_request.title }}
     - name: Fail PR Title
