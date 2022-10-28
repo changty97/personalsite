@@ -7,16 +7,13 @@ on:
   pull_request:
     branches:
     - main
-    
-env:
-  EVENT: ("push" "pull_request")
   
 jobs:
   make-lint:
     runs-on: ubuntu-latest
     steps:
       - name: Add Required Reviewers
-        run: echo "make lint"; echo contains(env.EVENT, github.event_name)
+        run: echo "make lint"; echo contains('("push" "pull_request")', github.event_name)
   print_title_of_pr:
     runs-on: ubuntu-latest
     steps:
