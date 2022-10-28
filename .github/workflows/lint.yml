@@ -10,15 +10,21 @@ on:
   
 jobs:
   make-lint:
+    strategy:
+      matrix:
+        pr_title: [OVD, FVT, No-JIRA]
     runs-on: ubuntu-latest
     steps:
       - name: Add Required Reviewers
-        run: echo "make lint"; echo contains('("push" "pull_request")', github.event_name)
+        run: echo "make lint"; echo startsWith(github.event.pull_request.title, matrix.pr_title)
   print_title_of_pr:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        pr_title: [OVD, FVT, No-JIRA]
     steps:
     - name : Check Title of PR
-      if: startsWith(github.event.pull_request.title, 'OVD')
+      if: startsWith(github.event.pull_request.title, matrix.pr_title)
       id: pr_title
       run: echo The Title of your PR is ${{ github.event.pull_request.title }}
     - name: Fail PR Title
