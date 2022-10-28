@@ -1,0 +1,21 @@
+name: Lint
+
+on:
+  pull_request:
+    branches:
+    - main
+    types:
+    - opened
+    - edited
+    
+jobs:
+  print_title_of_pr:
+    runs-on: ubuntu-latest
+    steps:
+    - name : Check Title of PR
+      if: contains(fromJson('["OVD", "FVT"]'), github.event.pull_request.title)
+      id: pr_title
+      run: echo The Title of your PR is ${{ github.event.pull_request.title }}
+    - name: Fail PR Title
+      if: steps.pr_title.outcome == 'skipped'
+      run: echo "Failed because Pull Request requires OVD-#### or FVT-####."; exit 1
