@@ -12,8 +12,8 @@ jobs:
   make-lint:
     runs-on: ubuntu-latest
     steps:
-      - name: Add Required Reviewe
-        run: echo "make lint"; echo contains('["push", "pull_request"]', github.event_name)
+      - name: Add Required Reviewers
+        run: echo "make lint"; echo contains(("push" "pull_request"), github.event_name)
   print_title_of_pr:
     runs-on: ubuntu-latest
     steps:
