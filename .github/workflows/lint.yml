@@ -9,6 +9,16 @@ on:
     - main
     
 jobs:
+  print_title_of_pr:
+    runs-on: ubuntu-latest
+    steps:
+    - name : Check Title of PR
+      if: contains(["OVD", "FVT"], github.event.pull_request.title)
+      id: pr_title
+      run: echo The Title of your PR is ${{ github.event.pull_request.title }}
+    - name: Fail PR Title
+      if: steps.pr_title.outcome == 'skipped'
+      run: echo "Failed because Pull Request requires OVD-#### or FVT-####."; exit 1
   make-lint:
     runs-on: ubuntu-latest
     steps:
