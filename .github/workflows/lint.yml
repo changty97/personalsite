@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Add Required Reviewe
-        run: echo "make lint"; echo contains(fromJson('["push", "pull_request"]'), github.event_name)
+        run: echo "make lint"; echo contains(fromJson(["push", "pull_request"]), github.event_name)
   print_title_of_pr:
     runs-on: ubuntu-latest
     steps:
