@@ -6,11 +6,12 @@ on:
     - main
     types:
     - opened
-#     - synchronize
+    - edited
     - ready_for_review
 
 jobs:
   add-required-reviewer:
+    if: github.event.action != 'edited'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -31,8 +32,6 @@ jobs:
       - name: echo Something
         run: echo ${{ contains(github.event.pull_request.title, fromJSON('["OVD","FVT","No-JIRA"]')) }}
       - name: Fail PR Title
-        if: |
-          github.event.action == 'edited' && 
-          contains(github.event.pull_request.title, fromJSON('["OVD","FVT","No-JIRA"]')) == false
+        if: contains(github.event.pull_request.title, fromJSON('["OVD","FVT","No-JIRA"]')) == false
         run: echo "Failed - Pull Request Title needs to include OVD-#### or FVT-#### or No-JIRA."; exit 1
         
