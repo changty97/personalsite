@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name : Echo something
-      run: echo  ${{ contains(fromJSON('["OVD","FVT","No-JIRA"]', github.event.pull_request.title)) }}
+      run: echo  ${{ contains(fromJSON('["OVD","FVT","No-JIRA"]'), github.event.pull_request.title) }}
     - name : Fail PR 
       if: contains(fromJSON('["OVD","FVT","No-JIRA"]'), github.event.pull_request.title) == false
       run: echo "Failed because Pull Request requires OVD-####, FVT-#### or No-JIRA."; exit 1
