@@ -14,10 +14,10 @@ jobs:
     steps:
       - name: Add Required Reviewers
         run: echo "make lint"; echo ${{ fromJSON('["push", "pull_request"]') }}
-  print_title_of_pr:
-    runs-on: ubuntu-latest
-    steps:
-    - name : Fail PR 
-      if: ${{ !contains(github.event.pull_request.title, fromJSON('["OVD","FVT","No-JIRA"]'))}}
-      run: echo "Failed because Pull Request requires OVD-####, FVT-#### or No-JIRA."; exit 1
+#   print_title_of_pr:
+#     runs-on: ubuntu-latest
+#     steps:
+#     - name : Fail PR 
+#       if: ${{ !startsWith(github.event.pull_request.title, fromJSON('["OVD","FVT","No-JIRA"]'))}}
+#       run: echo "Failed because Pull Request requires OVD-####, FVT-#### or No-JIRA."; exit 1
   
