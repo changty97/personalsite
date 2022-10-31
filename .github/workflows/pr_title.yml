@@ -12,6 +12,8 @@ jobs:
   print_title_of_pr:
     runs-on: ubuntu-latest
     steps:
+    - name : Echo something
+      run: echo  ${{ startsWith(github.event.pull_request.title, fromJSON('["OVD","FVT","No-JIRA"]')) }}
     - name : Fail PR 
       if: startsWith(github.event.pull_request.title, fromJSON('["OVD","FVT","No-JIRA"]')) == false
       run: echo "Failed because Pull Request requires OVD-####, FVT-#### or No-JIRA."; exit 1
