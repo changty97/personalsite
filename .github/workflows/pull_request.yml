@@ -25,3 +25,14 @@ jobs:
           contains(steps.reviewers.outputs.reviewers, github.actor) == false && 
           contains(steps.reviewers.outputs.reviewers, github.event.pull_request.user.login) == false
         run: echo "Adding a required reviewer - " ${{steps.reviewers.outputs.reviewers}}
+  check-pr-title:
+    runs-on: ubuntu-latest
+    steps:
+      - name: echo Something
+        run: echo ${{ contains(github.event.pull_request.title, fromJSON('["OVD","FVT","No-JIRA"]')) }}
+      - name: Fail PR Title
+        if: |
+          github.event.action == 'edited' && 
+          contains(github.event.pull_request.title, fromJSON('["OVD","FVT","No-JIRA"]')) == false
+        run: echo "Failed - Pull Request Title needs to include OVD-#### or FVT-#### or No-JIRA."; exit 1
+        
