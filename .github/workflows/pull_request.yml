@@ -30,7 +30,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: echo Something
-        run: echo ${{ contains(github.event.pull_request.title, 'OVD') }}
+        run:  echo ${{ toJSON('["OVD","FVT","No-JIRA"]') }}; echo ${{ fromJSON('["OVD","FVT","No-JIRA"]') }}
       - name: Fail PR Title
         if: contains(github.event.pull_request.title, fromJSON('["OVD","FVT","No-JIRA"]')) == false
         run: echo "Failed - Pull Request Title needs to include OVD-#### or FVT-#### or No-JIRA."; exit 1
