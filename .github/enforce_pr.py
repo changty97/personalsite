@@ -1,5 +1,5 @@
 import os
-import regex
+# import regex
 
 
 pr_title = ["OVD", "FVT", "No-JIRA"]
