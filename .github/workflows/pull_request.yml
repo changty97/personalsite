@@ -28,11 +28,13 @@ jobs:
         run: echo "Adding a required reviewer - " ${{steps.reviewers.outputs.reviewers}}
   check-pr-title:
     runs-on: ubuntu-latest
+    env:
+      PR_TITLE: github.event.pull_request.title
     steps:
       - name: Fail PR Title
-        if: |
-          contains(github.event.pull_request.title, 'OVD') == false && 
-          contains(github.event.pull_request.title, 'FVT') == false &&
-          contains(github.event.pull_request.title, 'No-JIRA') == false
-        run: echo "Failed - Pull Request Title needs to include OVD-#### or FVT-#### or No-JIRA."; exit 1
+#         if: |
+#           contains(github.event.pull_request.title, 'OVD') == false && 
+#           contains(github.event.pull_request.title, 'FVT') == false &&
+#           contains(github.event.pull_request.title, 'No-JIRA') == false
+        run: echo ${{ env.PR_TITLE }}
         
