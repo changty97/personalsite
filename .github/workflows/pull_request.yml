@@ -29,7 +29,7 @@ jobs:
   check-pr-title:
     runs-on: ubuntu-latest
     env:
-      PR_TITLE: github.event.pull_request.title
+      PR_TITLE: ${{ github.event.pull_request.title }}
     steps:
       - name: Fail PR Title
 #         if: |
