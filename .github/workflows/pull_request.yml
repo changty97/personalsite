@@ -37,5 +37,5 @@ jobs:
 #           contains(github.event.pull_request.title, 'OVD') == false && 
 #           contains(github.event.pull_request.title, 'FVT') == false &&
 #           contains(github.event.pull_request.title, 'No-JIRA') == false
-        run: python enforce_pr.py
+        run: python ./.github/enforce_pr.py
         
