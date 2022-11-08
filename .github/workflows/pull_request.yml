@@ -31,6 +31,7 @@ jobs:
     env:
       PR_TITLE: ${{ github.event.pull_request.title }}
     steps:
+      - uses: actions/checkout@v2
       - name: Fail PR Title
 #         if: |
 #           contains(github.event.pull_request.title, 'OVD') == false && 
