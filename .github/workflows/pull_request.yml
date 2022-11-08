@@ -31,10 +31,11 @@ jobs:
     env:
       PR_TITLE: ${{ github.event.pull_request.title }}
     steps:
+      - uses: actions/checkout@v2
       - name: Fail PR Title
 #         if: |
 #           contains(github.event.pull_request.title, 'OVD') == false && 
 #           contains(github.event.pull_request.title, 'FVT') == false &&
 #           contains(github.event.pull_request.title, 'No-JIRA') == false
-        run: python --version
+        run: python enforce_pr.py
         
