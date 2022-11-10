@@ -13,7 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: echo stuff
-        run: echo ${{ toJson(github.event.pull_request.requested_reviewers) }}
+        run: echo ${{ toJson(github.event.pull_request) }}
       - name: Get Required Reviewers
         if: github.event.review.state == 'approved'
         id: reviewers
