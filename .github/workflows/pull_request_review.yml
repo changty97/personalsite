@@ -13,15 +13,18 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: echo stuff
-        run: echo ${{ toJson(github.event.review) }}
+        run: echo ${{ github.actor }}
+        
       - name: Get Required Reviewers
         if: github.event.review.state == 'approved'
         id: reviewers
         run: echo ::set-output name=reviewers::$(cat .github/required_reviewers.txt)
       - name: Check Required Approval
         if: |
+          contains(steps.reviewers.outputs.reviewers, github.event.review.user.login ) == true ||
           contains(steps.reviewers.outputs.reviewers, github.event.pull_request.user.login) == false &&
-          github.event.review.state == 'approved' && contains(steps.reviewers.outputs.reviewers, github.actor) == true
+          github.event.review.state == 'approved' && 
+          contains(steps.reviewers.outputs.reviewers, github.actor) == true
         id: approval
         run: echo "Approved - you may now merge your Pull Request."; exit 0
       - name: Skipped
