@@ -10,25 +10,18 @@ on:
 jobs:
   check-required-approval:
     runs-on: ubuntu-latest
+    if: |
+      contains(steps.reviewers.outputs.reviewers, github.event.pull_request.user.login) == false &&
+      github.event.review.state == 'approved'
     steps:
       - uses: actions/checkout@v2
-      - name: echo stuff
-        run: echo ${{ github.actor }}
-        
       - name: Get Required Reviewers
-        if: github.event.review.state == 'approved'
         id: reviewers
         run: echo ::set-output name=reviewers::$(cat .github/required_reviewers.txt)
       - name: Check Required Approval
-        if: |
-          contains(steps.reviewers.outputs.reviewers, github.event.review.user.login ) == true ||
-          contains(steps.reviewers.outputs.reviewers, github.event.pull_request.user.login) == false &&
-          github.event.review.state == 'approved' && 
-          contains(steps.reviewers.outputs.reviewers, github.actor) == true
+        if: contains(steps.reviewers.outputs.reviewers, github.actor) == true
         id: approval
         run: echo "Approved - you may now merge your Pull Request."; exit 0
       - name: Skipped
-        if: |
-          contains(steps.reviewers.outputs.reviewers, github.event.pull_request.user.login) == false && 
-          steps.approval.outcome == 'skipped'
+        if: steps.approval.outcome == 'skipped'
         run: echo "Skipped because PR requires approvals."; echo ${{ steps.approval.outcome }}; exit 1
