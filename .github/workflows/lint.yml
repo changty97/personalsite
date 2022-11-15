@@ -13,7 +13,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Add Required Reviewers
-        run: echo "make lint"; echo ${{ fromJSON('["push", "pull_request"]') }}
+        run: echo "make lint"; 
+      - name: echo stuff
+        run: echo ${{ github.event.pull_request.user.login }}
 #   print_title_of_pr:
 #     runs-on: ubuntu-latest
 #     steps:
