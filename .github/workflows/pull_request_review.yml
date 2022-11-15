@@ -17,7 +17,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: echo stuff
-        run: echo ${{ env.REQUIRED_REVIEWER_PR }}
+        run: echo ${{ github.event.pull_request.user.login }}
       - name: Get Required Reviewers
         id: reviewers
         run: echo ::set-output name=reviewers::$(cat .github/required_reviewers.txt)
