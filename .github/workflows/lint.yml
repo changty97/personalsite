@@ -17,4 +17,5 @@ jobs:
     steps:
       - name: Add Required Reviewers
         run: echo "make lint";
-  
+      - name: echo stuff
+        run: echo ${{ env.REQUIRED_REVIEWER_PR }}; echo ${{ contains(env.REQUIRED_REVIEWER_PR, github.event.pull_request.user.login) }}
