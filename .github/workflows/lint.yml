@@ -7,7 +7,10 @@ on:
   pull_request:
     branches:
     - main
-  
+
+env:
+  REQUIRED_REVIEWER_PR: ${{ secrets.REQUIRED_REVIEWER_PR }}
+
 jobs:
   make-lint:
     runs-on: ubuntu-latest
@@ -15,7 +18,7 @@ jobs:
       - name: Add Required Reviewers
         run: echo "make lint"; 
       - name: echo stuff
-        run: echo ${{ github.event.pull_request.user.login }}
+        run: echo ${{ github.event.pull_request.user.login }}; echo contains(${{ env.REQUIRED_REVIEWER_PR }}, github.event.pull_request.user.login)
 #   print_title_of_pr:
 #     runs-on: ubuntu-latest
 #     steps:
