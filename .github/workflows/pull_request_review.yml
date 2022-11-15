@@ -17,13 +17,13 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: echo stuff
-        run: echo ${{ REQUIRED_REVIEWER_PR }}
+        run: echo ${{ env.REQUIRED_REVIEWER_PR }}
       - name: Get Required Reviewers
         id: reviewers
         run: echo ::set-output name=reviewers::$(cat .github/required_reviewers.txt)
       - name: Check Requested Reviewers
         if: |
-          contains(${{ REQUIRED_REVIEWER_PR }}, github.event.pull_request.user.login) == false &&
+          contains(${{ env.REQUIRED_REVIEWER_PR }}, github.event.pull_request.user.login) == false &&
           contains(steps.reviewers.outputs.reviewers, github.event.pull_request.requested_reviewers) == true
         run: echo "Approved"
       - name: Check Required Approval
