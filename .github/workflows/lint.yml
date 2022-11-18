@@ -8,14 +8,12 @@ on:
     branches:
     - main
 
-env:
-  REQUIRED_REVIEWER_PR: ${{ secrets.REQUIRED_REVIEWER_PR }}
-
 jobs:
   make-lint:
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
     steps:
       - name: Add Required Reviewers
         run: echo "make lint";
-      - name: echo stuff
-        run: echo ${{ env.REQUIRED_REVIEWER_PR }}; echo ${{ contains(env.REQUIRED_REVIEWER_PR, github.event.pull_request.user.login) }}
