@@ -21,4 +21,4 @@ jobs:
       - name: Add Required Reviewers
         run: echo "make lint";
       - name: Get Commit
-        run: gh api /repos/changty97/personalsite/commits/${{github.ref_name}}
+        run: gh api /repos/changty97/personalsite/commits/${{github.ref}}
