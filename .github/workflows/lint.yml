@@ -18,7 +18,7 @@ jobs:
         os: [ubuntu-latest, windows-latest]
     runs-on: ${{ matrix.os }}
     steps:
-      - name: Add Required Reviewers
-        run: echo "make lint";
+      - name: Echo PR Title
+        run: echo ${{ github.event.pull_request.title }}
       - name: Get Commit
         run: gh api /repos/changty97/personalsite/commits/${{github.ref}}
