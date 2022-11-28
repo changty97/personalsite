@@ -19,7 +19,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - name: Echo PR Title
-        run: echo ${{ github.event.head_commit.message }}
+        run: echo ${{ github.event.head_commit.message }}; echo ${{ github.event_name }}
       - name: Get Commit
         run: gh api /repos/changty97/personalsite/commits/${{github.sha}}/pulls
 
