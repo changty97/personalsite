@@ -21,4 +21,6 @@ jobs:
       - name: Echo PR Title
         run: echo ${{ github.event.pull_request.title }}
       - name: Get Commit
-        run: gh api /repos/changty97/personalsite/commits/${{github.ref}}
+        run: gh api /repos/changty97/personalsite/commits/${{github.sha}}/pulls
+
+        
