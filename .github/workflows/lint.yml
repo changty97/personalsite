@@ -9,13 +9,21 @@ on:
     - main
 
 env:
-  REQUIRED_REVIEWER_PR: ${{ secrets.REQUIRED_REVIEWER_PR }}
-
+  GH_TOKEN: ${{ github.token }}
+  
 jobs:
   make-lint:
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
     steps:
-      - name: Add Required Reviewers
-        run: echo "make lint";
-      - name: echo stuff
-        run: echo ${{ env.REQUIRED_REVIEWER_PR }}; echo ${{ contains(env.REQUIRED_REVIEWER_PR, github.event.pull_request.user.login) }}
+      - name: Echo PR Title
+        run: echo ${{ github.event.head_commit.message }}; echo ${{ github.event_name }}; echo ${{ github.event.head_commit }}
+      - name: Get Commit
+        run: gh api /repos/changty97/personalsite/commits/${{github.sha}}/pulls
+      - name: skip
+        if: ${{ github.event.head_commit }}
+        run: echo ${{ github.event.head_commit }}
+
+        
