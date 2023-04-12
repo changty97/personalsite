@@ -18,9 +18,8 @@ jobs:
         os: [ubuntu-latest, windows-latest]
     runs-on: ${{ matrix.os }}
     steps:
-      - name: Echo PR Title
-        if: ${{ !github.event.head_commit }}
-        run: echo ${{ github.event.pull_request.title }}
+      - name: Echo sha
+        run: echo ${{ github.head_ref }}/${{ github.sha }}
       - name: Get Commit
         run: gh api /repos/changty97/personalsite/commits/${{github.sha}}/pulls
         
