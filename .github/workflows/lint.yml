@@ -15,6 +15,10 @@ jobs:
   make-lint:
     runs-on: [ubuntu-latest]
     steps:
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
       - name: Echo sha
         run: echo ${{ github.head_ref }}/${{ github.sha }} && echo ${{ github.event.number }}
       - name: Get Commit
