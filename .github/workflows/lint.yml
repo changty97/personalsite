@@ -13,13 +13,10 @@ env:
   
 jobs:
   make-lint:
-    strategy:
-      matrix:
-        os: [ubuntu-latest, windows-latest]
-    runs-on: ${{ matrix.os }}
+    runs-on: [ubuntu-latest]
     steps:
       - name: Echo sha
-        run: echo ${{ github.head_ref }}/${{ github.sha }} && echo ${{ fromJSON(github) }}
+        run: echo ${{ github.head_ref }}/${{ github.sha }} && echo ${{ github.event }}
       - name: Get Commit
         run: gh api /repos/changty97/personalsite/commits/${{github.sha}}/pulls
         
