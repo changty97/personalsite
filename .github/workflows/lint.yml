@@ -12,7 +12,7 @@ env:
   GH_TOKEN: ${{ github.token }}
   
 jobs:
-  make-lint:
+  plus-two:
     runs-on: [ubuntu-latest]
     outputs:
       output1: ${{ steps.step1.outputs.test }}
@@ -20,8 +20,13 @@ jobs:
       - name: Dump GitHub context
         id: step1
         run: echo "matrix=[{\"login\":\"jacobsm1-intel\",\"config\":\"Debug\"},{\"project\":\"bar\",\"config\":\"Release\"}]" >> $GITHUB_OUTPUT
+  make-lint:
+    runs-on: [ubuntu-latest]
+    steps:
+      - env:
+          OUTPUT1: ${{needs.plus-two.outputs.output1}}
       - name: Echo sha
-        run: echo $GITHUB_OUTPUT
+        run: echo $OUTPUT1
       - name: Get Commit
         run: gh api /repos/changty97/personalsite/commits/${{github.sha}}/pulls
         
