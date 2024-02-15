@@ -34,4 +34,4 @@ jobs:
       - name: Echo sha
         run: echo ${{ fromJSON(needs.plus-two.outputs.output1).login }} 
       - name: Echo ORG
-        run: gh api /orgs/174-databases/teams/test/members
+        run: gh api --help
