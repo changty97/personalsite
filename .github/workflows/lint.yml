@@ -14,13 +14,16 @@ env:
 jobs:
   make-lint:
     runs-on: [ubuntu-latest]
+    outputs:
+      output1: ${{ steps.step1.outputs.test }}
     steps:
       - name: Dump GitHub context
-        env:
-          GITHUB_CONTEXT: ${{ toJson(github) }}
-        run: echo "$GITHUB_CONTEXT"
+        id: step1
+        run: |
+          PLUS_TWO_REVIEWERS=$(gh api /orgs/174-databases/teams/test/members)
+          echo "test=$PLUS_TWO_REVIEWERS" >> "$GITHUB_OUTPUT"
       - name: Echo sha
-        run: echo ${{ github.head_ref }}/${{ github.sha }} && gh pr edit ${{ github.event.number }} --add-label "+1 Approved"
+        run: echo ${{ outputs.output1 }}
       - name: Get Commit
         run: gh api /repos/changty97/personalsite/commits/${{github.sha}}/pulls
         
