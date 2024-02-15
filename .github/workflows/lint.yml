@@ -19,9 +19,9 @@ jobs:
     steps:
       - id: matrix
         run: |
-          echo "value=[{\"a\", \"b\", \"c\"}]" >> $GITHUB_OUTPUT
+          echo "value=[{\"login\": \"sshane-ifs\"},{\"login\": \"ellisatintel\"},{\"login\": \"pdgonzal1\"}]" >> $GITHUB_OUTPUT
       - run: |
-          echo "${{ steps.matrix.outputs.value }}"
+          echo "${{ steps.matrix.outputs.value[0] }}"
   build:
     needs: [ setup ]
     runs-on: ubuntu-latest
