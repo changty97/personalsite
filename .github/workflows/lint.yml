@@ -33,7 +33,4 @@ jobs:
         with:
           fetch-depth: 0
       - name: Echo sha
-        run: echo $OUTPUT1
-      - name: Get Commit
-        run: gh api /orgs/174-databases/teams/test
-        
+        run: echo ${{ toJSON(OUTPUT1) }}
