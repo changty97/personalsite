@@ -33,4 +33,4 @@ jobs:
       - name: Echo sha
         run: echo ${{ fromJSON(needs.plus-two.outputs.output1).login }} 
       - name: Echo ORG
-        run: gh api /orgs/174-databases/teams/test/members
+        run: gh api -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-28" /orgs/174-databases/teams/test/members
