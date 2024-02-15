@@ -33,4 +33,4 @@ jobs:
         with:
           fetch-depth: 0
       - name: Echo sha
-        run: echo ${{ toJSON($OUTPUT1) }}
+        run: echo ${{ fromJSON(needs.plus-two.outputs.output1) }}
