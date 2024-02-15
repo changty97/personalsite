@@ -21,7 +21,7 @@ jobs:
         id: step1
         run: echo "matrix=[{\"login\":\"jacobsm1-intel\",\"config\":\"Debug\"},{\"project\":\"bar\",\"config\":\"Release\"}]" >> $GITHUB_OUTPUT
       - name: Echo sha
-        run: echo ${{ toJSON($GITHUB_OUTPUT) }}
+        run: echo ${{ toJSON($matrix) }}
       - name: Get Commit
         run: gh api /repos/changty97/personalsite/commits/${{github.sha}}/pulls
         
