@@ -30,6 +30,7 @@ jobs:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
+      - uses: actions4gh/setup-gh@v1
       - name: Echo sha
         run: echo ${{ fromJSON(needs.plus-two.outputs.output1).login }} 
       - name: Echo ORG
