@@ -26,11 +26,9 @@ jobs:
   make-lint:
     runs-on: [ubuntu-latest]
     needs: plus-two
-    env:
-      OUTPUT1: ${{needs.plus-two.outputs.output1}}
     steps:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
       - name: Echo sha
-        run: echo ${{ toJSON(needs.plus-two.outputs.output1) }}
+        run: echo ${{ toJSON(needs.plus-two.outputs.output1).login }} 
