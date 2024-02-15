@@ -31,7 +31,7 @@ jobs:
     steps:
       - name: test
         run: |
-          echo "${{ fromJSON(matrix.value).login }}"
+          echo "${{ toJSON(matrix.value).login }}"
   # plus-two:
   #   runs-on: [ubuntu-latest]
   #   outputs:
