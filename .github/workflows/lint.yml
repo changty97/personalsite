@@ -22,7 +22,7 @@ jobs:
           fetch-depth: 0
       - name: Dump GitHub context
         id: step1
-        run: echo "test={\"login\":\"jacobsm1-intel\"},{\"login\":\"kaitlynngabriel\"}" >> $GITHUB_OUTPUT
+        run: echo "test={{\"login\":\"jacobsm1-intel\"},{\"login\":\"kaitlynngabriel\"}}" >> $GITHUB_OUTPUT
   make-lint:
     runs-on: [ubuntu-latest]
     needs: plus-two
@@ -33,4 +33,4 @@ jobs:
       - name: Echo sha
         run: echo ${{ fromJSON(needs.plus-two.outputs.output1).login }} 
       - name: Echo ORG
-        run: gh api orgs/174-databases/teams/test/members
+        run: gh api /orgs/174-databases/teams/test/members
