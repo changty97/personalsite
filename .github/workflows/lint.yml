@@ -12,25 +12,44 @@ env:
   GH_TOKEN: ${{ github.token }}
   
 jobs:
-  plus-two:
-    runs-on: [ubuntu-latest]
+  setup:
+    runs-on: ubuntu-latest
     outputs:
-      output1: ${{ steps.step1.outputs.test }}
+      matrix: ${{ steps.matrix.outputs.value }}
     steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-      - name: Dump GitHub context
-        id: step1
-        run: echo "test="$(gh api /orgs/174-databases/teams/test) >> $GITHUB_OUTPUT
-  make-lint:
-    runs-on: [ubuntu-latest]
-    needs: plus-two
+      - id: matrix
+        run: |
+          echo "value=[\"a\", \"b\", \"c\"]" >> $GITHUB_OUTPUT
+      - run: |
+          echo "${{ steps.matrix.outputs.value }}"
+  build:
+    needs: [ setup ]
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        value: ${{fromJSON(needs.setup.outputs.matrix)}}
     steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-      - name: Echo sha
-        run: echo ${{ toJSON(needs.plus-two.outputs.output1) }} 
-      - name: Echo ORG
-        run: echo ${{ fromJSON(needs.plus-two.outputs.output1).login }} 
+      - run: |
+          echo "${{ matrix.value }}"
+  # plus-two:
+  #   runs-on: [ubuntu-latest]
+  #   outputs:
+  #     output1: ${{ steps.step1.outputs.test }}
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #       with:
+  #         fetch-depth: 0
+  #     - name: Dump GitHub context
+  #       id: step1
+  #       run: echo "test="$(gh api /orgs/174-databases/teams/test) >> $GITHUB_OUTPUT
+  # make-lint:
+  #   runs-on: [ubuntu-latest]
+  #   needs: plus-two
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #       with:
+  #         fetch-depth: 0
+  #     - name: Echo sha
+  #       run: echo ${{ toJSON(needs.plus-two.outputs.output1) }} 
+  #     - name: Echo ORG
+  #       run: echo ${{ fromJSON(needs.plus-two.outputs.output1).login }} 
