@@ -23,7 +23,7 @@ jobs:
           PLUS_TWO_REVIEWERS=$(gh api /orgs/174-databases/teams/test/members)
           echo "test=$PLUS_TWO_REVIEWERS" >> "$GITHUB_OUTPUT"
       - name: Echo sha
-        run: echo ${{ outputs.output1 }}
+        run: echo $PLUS_TWO_REVIEWERS
       - name: Get Commit
         run: gh api /repos/changty97/personalsite/commits/${{github.sha}}/pulls
         
