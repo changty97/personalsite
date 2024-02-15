@@ -26,12 +26,12 @@ jobs:
   make-lint:
     runs-on: [ubuntu-latest]
     needs: plus-two
+    env:
+      OUTPUT1: ${{needs.plus-two.outputs.output1}}
     steps:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      - env:
-          OUTPUT1: ${{needs.plus-two.outputs.output1}}
       - name: Echo sha
         run: echo $OUTPUT1
       - name: Get Commit
