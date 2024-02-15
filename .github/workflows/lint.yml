@@ -14,7 +14,7 @@ env:
   
 jobs:
   setup:
-    runs-on: ubuntu-latest
+    runs-on: [ubuntu-latest]
     outputs:
       matrix: ${{ steps.matrix.outputs.value }}
     steps:
@@ -25,7 +25,7 @@ jobs:
           echo "${{ steps.matrix.outputs.value }}"
   build:
     needs: [ setup ]
-    runs-on: ubuntu-latest
+    runs-on: [ubuntu-latest]
     strategy:
       matrix:
         value: ${{fromJSON(needs.setup.outputs.matrix)}}
@@ -43,13 +43,13 @@ jobs:
   #     - name: Dump GitHub context
   #       id: step1
   #       run: echo "test="$(gh api /orgs/174-databases/teams/test) >> $GITHUB_OUTPUT
-  make-lint:
-    runs-on: [ubuntu-latest]
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-      - name: Echo sha
-        run: echo ${{ toJSON(needs.plus-two.outputs.output1) }} 
+  # make-lint:
+  #   runs-on: [ubuntu-latest]
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #       with:
+  #         fetch-depth: 0
+  #     - name: Echo sha
+  #       run: echo ${{ toJSON(needs.plus-two.outputs.output1) }} 
   #     - name: Echo ORG
   #       run: echo ${{ fromJSON(needs.plus-two.outputs.output1).login }} 
