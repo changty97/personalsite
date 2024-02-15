@@ -31,4 +31,4 @@ jobs:
         with:
           fetch-depth: 0
       - name: Echo sha
-        run: echo ${{ fromJSON(needs.plus-two.outputs.output1.login) }} 
+        run: echo ${{ fromJSON(needs.plus-two.outputs.output1).login }} 
