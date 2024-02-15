@@ -19,11 +19,9 @@ jobs:
     steps:
       - name: Dump GitHub context
         id: step1
-        run: |
-          PLUS_TWO_REVIEWERS=$(gh api /orgs/174-databases/teams/test/members)
-          echo "test=$PLUS_TWO_REVIEWERS" >> "$GITHUB_OUTPUT"
+        run: echo "matrix=[{\"login\":\"jacobsm1-intel\",\"config\":\"Debug\"},{\"project\":\"bar\",\"config\":\"Release\"}]" >> $GITHUB_OUTPUT
       - name: Echo sha
-        run: echo $PLUS_TWO_REVIEWERS
+        run: echo ${{ toJSON(matrix) }}
       - name: Get Commit
         run: gh api /repos/changty97/personalsite/commits/${{github.sha}}/pulls
         
