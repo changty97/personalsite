@@ -4,6 +4,7 @@ on:
   push:
     branches:
     - main
+    - changty97-patch-1
   pull_request:
     branches:
     - main
