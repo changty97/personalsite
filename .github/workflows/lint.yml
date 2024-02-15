@@ -22,7 +22,7 @@ jobs:
           fetch-depth: 0
       - name: Dump GitHub context
         id: step1
-        run: echo "test=[{\"login\":\"jacobsm1-intel\",\"config\":\"Debug\"},{\"project\":\"bar\",\"config\":\"Release\"}]" >> $GITHUB_OUTPUT
+        run: echo "test={\"login\":\"jacobsm1-intel\",\"config\":\"Debug\"},{\"project\":\"bar\",\"config\":\"Release\"}" >> $GITHUB_OUTPUT
   make-lint:
     runs-on: [ubuntu-latest]
     needs: plus-two
