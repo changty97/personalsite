@@ -30,7 +30,7 @@ jobs:
         value: ${{fromJSON(needs.setup.outputs.matrix)}}
     steps:
       - run: |
-          echo "${{ matrix.value }}"
+          echo "${{ fromJSON(matrix.value) }}"
   # plus-two:
   #   runs-on: [ubuntu-latest]
   #   outputs:
