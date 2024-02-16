@@ -27,10 +27,10 @@ jobs:
     runs-on: [ubuntu-latest]
     strategy:
       matrix:
-        value: ${{fromJSON(needs.setup.outputs.matrix)}}
+        value: ${{fromJSON(needs.setup.outputs.matrix)login}}
     steps:
       - name: test
-        run: echo "${{ matrix.value.login }}"
+        run: echo "${{ matrix.value }}"
   # plus-two:
   #   runs-on: [ubuntu-latest]
   #   outputs:
