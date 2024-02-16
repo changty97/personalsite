@@ -21,13 +21,13 @@ jobs:
         run: |
           echo "value=[{\"login\": \"sshane-ifs\",\"id\": \"88007980\"},{\"login\": \"ellisatintel\"},{\"login\": \"pdgonzal1\"}]" >> $GITHUB_OUTPUT
       - run: |
-          echo "${{ steps.matrix.outputs.value }}"
+          echo "${{ fromJSON(steps.matrix.outputs.value).login }}"
   build:
     needs: [ setup ]
     runs-on: [ubuntu-latest]
     strategy:
       matrix:
-        value: ${{fromJSON(needs.setup.outputs.matrix).login}}
+        value: ${{fromJSON(needs.setup.outputs.matrix)}}
     steps:
       - run: echo "${{ matrix.value }}"
   # plus-two:
