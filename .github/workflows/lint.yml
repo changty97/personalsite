@@ -19,15 +19,15 @@ jobs:
     steps:
       - id: matrix
         run: |
-          echo "value={"ellisatintel"}" >> $GITHUB_OUTPUT
+          echo "value=ellisatintel" >> $GITHUB_OUTPUT
       - run: |
-          echo "${{ fromJSON(steps.matrix.outputs.value) }}"
+          echo "${{ steps.matrix.outputs.value }}"
   build:
     needs: [ setup ]
     runs-on: [ubuntu-latest]
     strategy:
       matrix:
-        value: ${{fromJSON(needs.setup.outputs.matrix)}}
+        value: ${{needs.setup.outputs.matrix}}
     steps:
       - run: echo "${{ matrix.value }}"
   # plus-two:
