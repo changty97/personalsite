@@ -19,7 +19,7 @@ jobs:
     steps:
       - id: matrix
         run: |
-          echo "value=['ellisatintel']" >> $GITHUB_OUTPUT
+          echo 'value'={"login":"jacobsm1-intel"} >> $GITHUB_OUTPUT
       - run: |
           echo "${{ steps.matrix.outputs.value }}"
   build:
@@ -27,7 +27,7 @@ jobs:
     runs-on: [ubuntu-latest]
     strategy:
       matrix:
-        value: ${{needs.setup.outputs.matrix}}
+        value: ${{fromJSON(needs.setup.outputs.matrix)}}
     steps:
       - run: echo "${{ matrix.value }}"
   # plus-two:
