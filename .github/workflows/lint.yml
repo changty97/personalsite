@@ -19,7 +19,7 @@ jobs:
     steps:
       - id: matrix
         run: |
-          echo "value=[ellisatintel]" >> $GITHUB_OUTPUT
+          echo "value=["ellisatintel"]" >> $GITHUB_OUTPUT
       - run: |
           echo "${{ steps.matrix.outputs.value }}"
   build:
