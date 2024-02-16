@@ -21,7 +21,7 @@ jobs:
         run: |
           echo "value=[{\"login\": \"sshane-ifs\",\"id\": \"88007980\"},{\"login\": \"ellisatintel\"},{\"login\": \"pdgonzal1\"}]" >> $GITHUB_OUTPUT
       - run: |
-          echo "${{ fromJSON(steps.matrix.outputs.value).login }}"
+          echo "${{ fromJSON(steps.matrix.outputs.value)[0].login }}"
   build:
     needs: [ setup ]
     runs-on: [ubuntu-latest]
