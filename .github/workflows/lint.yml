@@ -19,7 +19,7 @@ jobs:
     steps:
       - id: matrix
         run: |
-          echo 'value'=[{"login":"jacobsm1-intel",\n
+          echo 'value'=[{"login":"jacobsm1-intel",
           "login":"ganesh-valliappan"}] >> $GITHUB_OUTPUT
       - run: |
           echo "${{ steps.matrix.outputs.value }}"
