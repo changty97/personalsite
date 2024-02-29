@@ -14,13 +14,14 @@ env:
 jobs:
   setup:
     runs-on: [ubuntu-latest]
+    container: alpine:latest
     outputs:
       matrix: ${{ steps.matrix.outputs.value }}
     steps:
       - uses: actions4gh/setup-gh@v1
       - id: matrix
         run: |
-          echo 'value'=$(gh api -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-28" /orgs/174-databases/teams/test/members) >> $GITHUB_OUTPUT
+          echo 'value'=$(gh api /orgs/174-databases/teams/test/members) >> $GITHUB_OUTPUT
       - run: |
           echo "${{ steps.matrix.outputs.value }}"
   build:
