@@ -32,6 +32,7 @@ jobs:
       - uses: actions4gh/setup-gh@v1
       - id: matrix
         run: |
+          gh --version
           echo 'value'=$(gh api /orgs/174-databases/teams/test/members) >> $GITHUB_OUTPUT
       - run: |
           echo "${{ steps.matrix.outputs.value }}"
