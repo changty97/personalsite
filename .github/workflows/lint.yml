@@ -19,8 +19,8 @@ jobs:
     steps:
       - id: matrix
         run: |
-          gh api /orgs/174-databases/teams/test/members
-          echo 'value'=$(gh api /orgs/174-databases/teams/test/members) >> $GITHUB_OUTPUT
+          gh api orgs/174-databases/teams/test/members
+          echo 'value'=$(gh api orgs/174-databases/teams/test/members) >> $GITHUB_OUTPUT
       - run: |
           echo "${{ steps.matrix.outputs.value }}"
   build:
