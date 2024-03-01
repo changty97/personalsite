@@ -18,7 +18,7 @@ jobs:
       matrix: ${{ steps.matrix.outputs.value }}
     steps:
       - id: matrix
-        run: echo 'value'=$(gh api /orgs/tchang-org1/teams/test/invitations) >> $GITHUB_OUTPUT
+        run: echo 'value'=$(gh api /orgs/tchang-org1/teams/test/members) >> $GITHUB_OUTPUT
       - run: |
           echo "${{ steps.matrix.outputs.value }}"
   build:
