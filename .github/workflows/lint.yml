@@ -9,7 +9,7 @@ on:
     - main
 
 env:
-  GH_TOKEN: ${{ github.token }}
+  GH_TOKEN: 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
   
 jobs:
   setup:
@@ -19,8 +19,7 @@ jobs:
     steps:
       - id: matrix
         run: |
-          gh api --version
-          # echo 'value'=$(gh api orgs/174-databases/teams/test/members) >> $GITHUB_OUTPUT
+          echo 'value'=$(gh api orgs/174-databases/teams/test/members) >> $GITHUB_OUTPUT
       - run: |
           echo "${{ steps.matrix.outputs.value }}"
   build:
