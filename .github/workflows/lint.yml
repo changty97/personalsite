@@ -12,14 +12,42 @@ env:
   GH_TOKEN: ${{ github.token }}
   
 jobs:
-  make-lint:
-    strategy:
-      matrix:
-        os: [ubuntu-latest, windows-latest]
-    runs-on: ${{ matrix.os }}
+  setup:
+    runs-on: [ubuntu-latest]
+    outputs:
+      plustwo: ${{ steps.matrix.outputs.value }}
     steps:
-      - name: Echo sha
-        run: echo ${{ github.head_ref }}/${{ github.sha }}
-      - name: Get Commit
-        run: gh api /repos/changty97/personalsite/commits/${{github.sha}}/pulls
-        
+      - id: matrix
+        run: echo 'value'=$(gh api /orgs/tchang-org1/members | grep -o '"login":"[^"]*"') >> $GITHUB_OUTPUT
+      - run: |
+          echo "${{ steps.matrix.outputs.value }}"
+  build:
+    needs: [ setup ]
+    runs-on: [ubuntu-latest]
+    steps:
+      - run: |
+             echo ${{github.event.pull_request.user.login}}
+             echo "${{ needs.setup.outputs.plustwo }}" 
+             echo ${{ contains(needs.setup.outputs.plustwo, github.triggering_actor) }}
+      
+  # plus-two:
+  #   runs-on: [ubuntu-latest]
+  #   outputs:
+  #     output1: ${{ steps.step1.outputs.test }}
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #       with:
+  #         fetch-depth: 0
+  #     - name: Dump GitHub context
+  #       id: step1
+  #       run: echo "test="$(gh api /orgs/174-databases/teams/test) >> $GITHUB_OUTPUT
+  # make-lint:
+  #   runs-on: [ubuntu-latest]
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #       with:
+  #         fetch-depth: 0
+  #     - name: Echo sha
+  #       run: echo ${{ toJSON(needs.plus-two.outputs.output1) }} 
+  #     - name: Echo ORG
+  #       run: echo ${{ fromJSON(needs.plus-two.outputs.output1).login }} 
