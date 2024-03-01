@@ -25,7 +25,9 @@ jobs:
     needs: [ setup ]
     runs-on: [ubuntu-latest]
     steps:
-      - run: echo "${{ needs.setup.outputs.plustwo }}"
+      - run: |
+             echo "${{ needs.setup.outputs.plustwo }}" 
+             echo ${{ contains(needs.setup.outputs.plustwo, github.triggering_actor) }}
       
   # plus-two:
   #   runs-on: [ubuntu-latest]
