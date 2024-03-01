@@ -15,7 +15,7 @@ jobs:
   setup:
     runs-on: [ubuntu-latest]
     outputs:
-      matrix: ${{ steps.matrix.outputs.value }}
+      plustwo: ${{ steps.matrix.outputs.value }}
     steps:
       - id: matrix
         run: echo 'value'=$(gh api /orgs/tchang-org1/members | grep -o '{"login":"[^"]*"' | sed -e '1s/^/[/' -e 's/$/},/' -e '$s/,$/]/') >> $GITHUB_OUTPUT
@@ -24,11 +24,8 @@ jobs:
   build:
     needs: [ setup ]
     runs-on: [ubuntu-latest]
-    strategy:
-      matrix:
-        value: ${{fromJSON(needs.setup.outputs.matrix)}}
     steps:
-      - run: echo "${{ matrix.value }}"
+      - run: echo "${{ setup.outputs.plustwo }}"
       
   # plus-two:
   #   runs-on: [ubuntu-latest]
