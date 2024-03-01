@@ -26,6 +26,7 @@ jobs:
     runs-on: [ubuntu-latest]
     steps:
       - run: |
+             echo ${{github.event.pull_request.user.login}}
              echo "${{ needs.setup.outputs.plustwo }}" 
              echo ${{ contains(needs.setup.outputs.plustwo, github.triggering_actor) }}
       
