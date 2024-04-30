@@ -13,7 +13,7 @@ jobs:
          with:
            fetch-depth: 0
        
-       - run: git diff --name-only origin/HEAD -- ${{github.sha}}
+       - run: git diff --name-only origin/main -- ${{github.sha}}
        
        - name: Get Required Directories
          id: requirement
