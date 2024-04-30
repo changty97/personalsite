@@ -19,5 +19,5 @@ jobs:
 
    call-lint:
      needs: required-paths
-     if: needs.required-paths.outputs.required >= 1
+     if: ${{ needs.required-paths.outputs.required >= 1 }}
      uses: ./.github/workflows/lint.yml
