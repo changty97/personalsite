@@ -22,6 +22,6 @@ jobs:
          run: echo "REQUIRED_PATH=$(git diff --name-only main...${{ GITHUB_SHA }} | grep -c >&1 ${{ matrix.discipline }})" >> $GITHUB_ENV
 
    call-lint:
-     needs: required-paths
-     if: ${{ success() && env.REQUIRED_PATH >= 1 }}
+     # needs: required-paths
+     # if: ${{ success() && env.REQUIRED_PATH >= 1 }}
      uses: ${{ github.workspace }}/.github/workflows/lint.yml
