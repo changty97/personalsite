@@ -22,4 +22,4 @@ jobs:
      # if: ${{ success() && env.REQUIRED_PATH >= 1 }}
      uses: ./.github/workflows/call_workflow.yml
      with:
-      config-path: .github/workflows/lint.yml
+      config-path: .github/workflows/call_lint.yml
