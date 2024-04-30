@@ -1,0 +1,29 @@
+name: CI Requirements Check
+
+on:
+  push:
+  workflow_call:
+   inputs:
+       config-path:
+         required: true
+         type: string
+
+jobs:
+   required-paths:
+     runs-on: [self-hosted, linux-se-runner]
+     matrix:
+        discipline: [ public,
+                      src,
+                    ]
+     steps:
+       - uses: actions/checkout@v4
+         with:
+           fetch-depth: 0
+
+       - name: Get Required Directories
+         run: echo "REQUIRED_PATH=$(git diff --name-only main...${{ GITHUB_SHA }} | grep -c >&1 ${{ matrix.discipline }})" >> $GITHUB_ENV
+
+   call-lint:
+     needs: required-paths
+     if: ${{ success() && env.REQUIRED_PATH >= 1 }}
+     uses: ${{ github.workspace }}/.github/workflows/lint.yml
