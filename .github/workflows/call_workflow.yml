@@ -17,7 +17,7 @@ jobs:
          id: requirement
          run: echo "REQUIRED_PATH=$(git diff --name-only origin/main..${{github.sha}} | grep -c >&1 .github)" >> $GITHUB_ENV
 
-       - run: echo $REQUIRED_PATH ; exit 1
+       - run: exit 1
 
    call-lint:
      needs: required-paths
