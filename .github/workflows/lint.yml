@@ -1,12 +1,13 @@
 name: Lint
 
 on:
-  push:
-    branches:
-    - main
-  pull_request:
-    branches:
-    - main
+  workflow_on:
+  # push:
+  #   branches:
+  #   - main
+  # pull_request:
+  #   branches:
+  #   - main
 
 env:
   GH_TOKEN: ${{ github.token }}
