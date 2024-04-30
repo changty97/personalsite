@@ -14,7 +14,7 @@ env:
   
 jobs:
   call-workflow-passing-data:
-    uses: changty97/personalsite/.github/workflows/call_workflow.yml@v1
+    uses: changty97/personalsite/.github/workflows/lint.yml@main
   make-lint:
     runs-on: [ubuntu-latest]
     steps:
