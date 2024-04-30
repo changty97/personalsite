@@ -20,6 +20,6 @@ jobs:
    call-lint:
      # needs: required-paths
      # if: ${{ success() && env.REQUIRED_PATH >= 1 }}
-     uses: ${{ github.workspace }}/.github/workflows/call_workflow.yml@${{ GITHUB_SHA }}
+     uses: ${{ github.workspace }}/.github/workflows/call_workflow.yml@${{GITHUB_SHA}}
      with:
       config-path: .github/workflows/lint.yml
