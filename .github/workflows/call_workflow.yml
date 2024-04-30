@@ -1,7 +1,6 @@
 name: CI Requirements Check
 
 on:
-  push:
   workflow_call:
    inputs:
        config-path:
@@ -13,9 +12,7 @@ jobs:
      runs-on: [ubuntu-latest]
      strategy:
        matrix:
-          discipline: [ public,
-                        src,
-                      ]
+          discipline: [ public, src]
      steps:
        - uses: actions/checkout@v4
          with:
