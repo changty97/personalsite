@@ -11,10 +11,11 @@ on:
 jobs:
    required-paths:
      runs-on: [ubuntu-latest]
-     matrix:
-        discipline: [ public,
-                      src,
-                    ]
+     strategy:
+       matrix:
+          discipline: [ public,
+                        src,
+                      ]
      steps:
        - uses: actions/checkout@v4
          with:
