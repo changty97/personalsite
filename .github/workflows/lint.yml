@@ -1,7 +1,6 @@
 name: Lint
 
 on:
-  workflow_call:
   push:
     branches:
     - main
@@ -13,8 +12,6 @@ env:
   GH_TOKEN: ${{ github.token }}
   
 jobs:
-  call-workflow-passing-data:
-    uses: changty97/personalsite/.github/workflows/lint.yml@main
   make-lint:
     runs-on: [ubuntu-latest]
     steps:
