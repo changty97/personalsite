@@ -13,7 +13,7 @@ jobs:
          with:
            fetch-depth: 0
        
-       - run: git log
+       - run: git branch -r
        
        - name: Get Required Directories
          id: requirement
