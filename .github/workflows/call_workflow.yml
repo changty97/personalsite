@@ -13,11 +13,11 @@ jobs:
          with:
            fetch-depth: 0
        
-       - run: git diff --name-only origin/main -- ${{github.sha}}
-       
        - name: Get Required Directories
          id: requirement
          run: echo "REQUIRED_PATH=$(git diff --name-only origin/main -- ${{github.sha}} | grep -c >&1 customer-platform)" >> $GITHUB_ENV
+
+         - run: echo $REQUIRED_PATH
 
    call-lint:
      needs: required-paths
