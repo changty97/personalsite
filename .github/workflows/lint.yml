@@ -13,22 +13,8 @@ env:
   GH_TOKEN: ${{ github.token }}
   
 jobs:
-  setup:
-    runs-on: ubuntu-latest
-    outputs:
-      matrix: ${{ steps.matrix.outputs.value }}
-    steps:
-      - id: matrix
-        run: |
-          echo "value=[{\"login\": \"sshane-ifs\"},{\"login\": \"ellisatintel\"},{\"login\": \"pdgonzal1\"}]" >> $GITHUB_OUTPUT
-      - run: |
-          echo "${{ steps.matrix.outputs.value }}"
-  build:
-    needs: [ setup ]
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        value: ${{fromJSON(needs.setup.outputs.matrix)}}
+  make-lint:
+    runs-on: [ubuntu-latest]
     steps:
       - name: test
         run: echo "${{ matrix.value }}"
