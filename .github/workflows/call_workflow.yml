@@ -16,8 +16,9 @@ jobs:
        - name: Get Required Directories
          id: requirement
          run: echo "REQUIRED_PATH=$(git diff --name-only origin/main..${{github.sha}} | grep -c >&1 .github)" >> $GITHUB_ENV
+       - run: exit 1
 
    call-lint:
      needs: required-paths
-     if: success() && needs.required-paths.outputs.required >= 1
+     if: needs.required-paths.outputs.required >= 1
      uses: ./.github/workflows/lint.yml
