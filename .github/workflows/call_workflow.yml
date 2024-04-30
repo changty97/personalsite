@@ -10,7 +10,7 @@ on:
 
 jobs:
    required-paths:
-     runs-on: [self-hosted, linux-se-runner]
+     runs-on: [ubuntu-latest]
      matrix:
         discipline: [ public,
                       src,
