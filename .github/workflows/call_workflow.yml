@@ -12,7 +12,9 @@ jobs:
        - uses: actions/checkout@v4
          with:
            fetch-depth: 0
-
+       
+       - run: git log
+       
        - name: Get Required Directories
          id: requirement
          run: echo "REQUIRED_PATH=$(git diff --name-only origin/HEAD -- ${{github.sha}} | grep -c >&1 customer-platform)" >> $GITHUB_ENV
