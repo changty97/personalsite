@@ -3,9 +3,6 @@ name: CI Requirements Check
 on:
   push:
 
-env:
-  REQUIRED_PATH: -1
-
 jobs:
    required-paths:
      runs-on: [ubuntu-latest]
@@ -19,9 +16,6 @@ jobs:
        - name: Get Required Directories
          id: requirement
          run: echo "REQUIRED_PATH=$(git diff --name-only origin/main..${{github.sha}} | grep -c >&1 customer-platform)" >> $GITHUB_ENV
-
-       - run: echo $REQUIRED_PATH
-       - run: git diff --name-only origin/main..${{github.sha}} | grep -c >&1 customer-platform
 
    echo:
       needs: required-paths
