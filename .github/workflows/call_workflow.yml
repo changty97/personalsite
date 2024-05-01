@@ -7,7 +7,7 @@ jobs:
    required-paths:
      runs-on: [ubuntu-latest]
      outputs:
-      required: ${{ steps.requirement.outputs.REQUIRED_PATH }}
+       required: ${{ steps.requirement.outputs.REQUIRED_PATH }}
      steps:
        - uses: actions/checkout@v4
          with:
@@ -21,7 +21,7 @@ jobs:
       needs: required-paths
       runs-on: [ubuntu-latest]
       steps:
-        - run: echo ${{ needs.required-paths.outputs.required }}
+        - run: echo $REQUIRED_PATH
       
 
    call-lint:
