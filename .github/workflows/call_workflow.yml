@@ -15,7 +15,7 @@ jobs:
 
        - name: Get Required Directories
          id: requirement
-         run: echo "REQUIRED_PATH=$(git diff --name-only origin/main..${{github.sha}} | grep -c >&1 .github)" >> $GITHUB_ENV
+         run: echo "REQUIRED_PATH=$(git diff --name-only origin/main..${{github.sha}} | grep -c >&1 customer-platform)" >> $GITHUB_ENV
 
    call-lint:
      needs: required-paths
