@@ -18,9 +18,9 @@ jobs:
 
        - name: Get Required Directories
          id: requirement
-         run: echo "REQUIRED_PATH=$(git diff --name-only main...${{ GITHUB_SHA }} | grep -c >&1 ${{ matrix.discipline }})" >> $GITHUB_OUTPUT
+         run: echo "REQUIRED_PATH=$(git diff --name-only origin/main...${{ GITHUB_SHA }} | grep -c >&1 ${{ matrix.discipline }})" >> $GITHUB_OUTPUT
 
    call-lint:
      needs: required-paths
      if: ${{ needs.required-paths.outputs.required }}
-     uses: ${{ github.workspace }}/.github/workflows/lint.yml
+     uses: ./.github/workflows/lint.yml
