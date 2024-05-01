@@ -6,18 +6,25 @@ on:
 jobs:
    required-paths:
      runs-on: [ubuntu-latest]
-     strategy:
-       matrix:
-          discipline: [ public, src]
+     outputs:
+       required: ${{ steps.requirement.outputs.REQUIRED_PATH }}
      steps:
        - uses: actions/checkout@v4
          with:
            fetch-depth: 0
 
        - name: Get Required Directories
-         run: echo "REQUIRED_PATH=$(git diff --name-only main...${{ GITHUB_SHA }} | grep -c >&1 ${{ matrix.discipline }})" >> $GITHUB_ENV
+         id: requirement
+         run: echo "REQUIRED_PATH=$(git diff --name-only origin/main..${{github.sha}} | grep -c >&1 customer-platform)" >> $GITHUB_OUTPUT
+
+   echo:
+      needs: required-paths
+      runs-on: [ubuntu-latest]
+      steps:
+        - run: echo ${{ needs.required-paths.outputs.required }}
+      
 
    call-lint:
-     # needs: required-paths
-     # if: ${{ success() && env.REQUIRED_PATH >= 1 }}
-     uses: ${{ github.workspace }}/.github/workflows/lint.yml
+     needs: required-paths
+     if: ${{ needs.required-paths.outputs.required >= 1 }}
+     uses: ./.github/workflows/lint.yml
