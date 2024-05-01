@@ -8,9 +8,6 @@ jobs:
      runs-on: [ubuntu-latest]
      outputs:
        required: ${{ steps.requirement.outputs.REQUIRED_PATH }}
-     strategy:
-       matrix:
-          discipline: [ public, src]
      steps:
        - uses: actions/checkout@v4
          with:
@@ -18,7 +15,7 @@ jobs:
 
        - name: Get Required Directories
          id: requirement
-         run: echo "REQUIRED_PATH=$(git diff --name-only origin/main...${{ github.sha }} | grep -c >&1 ${{ matrix.discipline }})" >> $GITHUB_OUTPUT
+         run: echo "REQUIRED_PATH=$(git diff --name-only origin/main...${{ github.sha }} | grep -c >&1 src)" >> $GITHUB_OUTPUT
 
    call-lint:
      needs: required-paths
