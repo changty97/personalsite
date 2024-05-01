@@ -18,15 +18,16 @@ jobs:
 
        - name: Get Required Directories
          id: requirement
-         run: echo "REQUIRED_PATH=$(git diff --name-only origin/main..${{github.sha}} | grep -c >&1 customer-platform)" >> $GITHUB_ENV && export ${{ env.REQUIRED_PATH }}=$REQUIRED_PATH 
+         run: echo "REQUIRED_PATH=$(git diff --name-only origin/main..${{github.sha}} | grep -c >&1 customer-platform)" >> $GITHUB_ENV
 
-       - run: echo $REQUIRED_PATH && echo ${{ env.REQUIRED_PATH }}
+       - run: echo $REQUIRED_PATH
+       - run: git diff --name-only origin/main..${{github.sha}} | grep -c >&1 customer-platform
 
    echo:
       needs: required-paths
       runs-on: [ubuntu-latest]
       steps:
-        - run: echo ${{ needs.required-paths.outputs.required }} && echo ${{ env.REQUIRED_PATH }}
+        - run: echo ${{ needs.required-paths.outputs.required }}
       
 
    call-lint:
