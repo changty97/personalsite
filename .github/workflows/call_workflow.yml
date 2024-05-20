@@ -25,7 +25,7 @@ jobs:
         CURRENT_APP: ${{ needs.required-paths.outputs.required }}
      steps:
        - name: Echo current app
-         run: echo ${{CURRENT_APP}}
+         run: echo ${{env.CURRENT_APP}}
 
    # call-lint:
      # needs: required-paths
