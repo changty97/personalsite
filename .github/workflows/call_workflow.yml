@@ -15,7 +15,7 @@ jobs:
            fetch-depth: 0
 
        - name: Get Required Directories
-         run: echo "REQUIRED_PATH=$(git diff --name-only main...${{ GITHUB_SHA }} | grep -c >&1 ${{ matrix.discipline }})" >> $GITHUB_ENV
+         run: echo "REQUIRED_PATH=$(git diff --name-only main...${{ github.sha }} | grep -c >&1 ${{ matrix.discipline }})" >> $GITHUB_ENV
 
    get-current-app:
      runs-on: [ubuntu-latest]
