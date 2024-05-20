@@ -6,6 +6,8 @@ on:
 jobs:
    required-paths:
      runs-on: [ubuntu-latest]
+     outputs:
+       required: ${{ steps.requirement.outputs.REQUIRED_PATH }}
      steps:
        - uses: actions/checkout@v4
          with:
@@ -15,7 +17,7 @@ jobs:
          run: echo "REQUIRED_PATH=$(git diff --name-only main...${{ github.sha }} | xargs dirname | sort | uniq)" >> $GITHUB_ENV
 
        - name: Echo current app
-         run: echo ${{REQUIRED_PATH}}
+         run: echo ${{needs.required-paths.outputs.required}}
 
    # get-current-app:
    #   runs-on: [ubuntu-latest]
