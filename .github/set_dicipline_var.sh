@@ -9,5 +9,5 @@ do
   if [ $i == *"$GET_DICIPLINE_CHANGES"* ]; then
     echo "$i"
     CURRENT_DISCIPLINE = $i
-  done
+  fi
 done
