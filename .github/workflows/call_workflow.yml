@@ -22,7 +22,7 @@ jobs:
 
        - name: Echo current app
          run: |
-           echo $CURRENT_DICIPLINE
+           echo $CURRENT_DISCIPLINE
            
 
    # get-current-app:
