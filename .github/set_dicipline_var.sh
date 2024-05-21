@@ -6,7 +6,7 @@ GET_DICIPLINE_CHANGES=$(git diff --name-only origin/main..$GITHUB_SHA | xargs di
 
 for i in "${DISCIPLINES[@]}"
 do
-  if [ $i =~ .*"$GET_DICIPLINE_CHANGES".* ]; then
+  if [ .*$GET_DICIPLINE_CHANGES.* =~ $i ]; then
     echo "$i"
     CURRENT_DISCIPLINE = $i
   fi
