@@ -17,7 +17,6 @@ jobs:
          id: requirement
          run: |
            CMD=$(git diff --name-only origin/main..${{github.sha}} | xargs dirname | sort | uniq)
-           echo "::add-mask::$CMD"
            echo "REQUIRED_PATH<<${CMD}" >> "$GITHUB_OUTPUT"
 
        - name: Echo current app
