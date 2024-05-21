@@ -22,7 +22,7 @@ jobs:
 
        - name: Echo current app
          run: |
-           echo {{steps.requirement.outputs.CURRENT_DISCIPLINE}}
+           echo ${{steps.requirement.outputs.CURRENT_DISCIPLINE}}
            
 
    # get-current-app:
