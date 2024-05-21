@@ -8,7 +8,7 @@ echo $GET_DICIPLINE_CHANGES
 for i in "${DISCIPLINES[@]}"
 do
   if echo "$i" | grep -q "$GET_DICIPLINE_CHANGES"; then
-    CURRENT_DISCIPLINE=$i
+    export CURRENT_DISCIPLINE=$i
     echo "$CURRENT_DISCIPLINE"
   fi
 done
