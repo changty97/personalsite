@@ -14,6 +14,7 @@ jobs:
            fetch-depth: 0
 
        - name: Get Required Directories
+         id: requirement
          run: echo "REQUIRED_PATH=$(git diff --name-only origin/main...${{ github.sha }} | xargs dirname | sort | uniq)" >> $GITHUB_OUTPUT
 
        - name: Echo current app
