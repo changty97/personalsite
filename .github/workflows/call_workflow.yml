@@ -15,10 +15,13 @@ jobs:
 
        - name: Get Required Directories
          id: requirement
-         run: echo "REQUIRED_PATH=$(git diff --name-only origin/main..${{github.sha}} | xargs dirname | sort | uniq)" >> $GITHUB_OUTPUT
+         run: |
+           CMD=$(git diff --name-only origin/main..${{github.sha}}
+           echo "::add-mask::$CMD"
+           echo "REQUIRED_PATH=$CMD | xargs dirname | sort | uniq)" >> $GITHUB_OUTPUT
 
        - name: Echo current app
-         run: echo ${{needs.required-paths.outputs.required}}
+         run: echo ${{steps.requirement.outputs.REQUIRED_PATH}}
 
    # get-current-app:
    #   runs-on: [ubuntu-latest]
