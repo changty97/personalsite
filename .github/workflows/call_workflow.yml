@@ -18,11 +18,11 @@ jobs:
 
        - name: Get Required Directories
          id: requirement
-         run: ./.github/set_dicipline_var.sh
+         run: echo "CURRENT_DISCIPLINE=$(./.github/set_dicipline_var.sh)" >> $GITHUB_OUTPUT
 
        - name: Echo current app
          run: |
-           echo $CURRENT_DISCIPLINE
+           echo {{steps.requirement.outputs.CURRENT_DISCIPLINE}}
            
 
    # get-current-app:
