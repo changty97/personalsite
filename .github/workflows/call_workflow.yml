@@ -16,8 +16,9 @@ jobs:
        - name: Get Required Directories
          id: requirement
          run: |
-           CMD=$(git diff --name-only origin/main..${{github.sha}})
-           echo "REQUIRED_PATH=$CMD | xargs dirname | sort | uniq)" >> $GITHUB_OUTPUT
+           CMD=$(git diff --name-only origin/main..${{github.sha}} | xargs dirname | sort | uniq)
+           echo "::add-mask::$CMD"
+           echo "REQUIRED_PATH=$CMD)" >> $GITHUB_OUTPUT
 
        - name: Echo current app
          run: echo ${{steps.requirement.outputs.REQUIRED_PATH}}
