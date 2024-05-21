@@ -16,8 +16,8 @@ jobs:
        - name: Get Required Directories
          id: requirement
          run: |
-           CMD=$(git diff --name-only origin/main..${{github.sha}} | xargs dirname | sort | uniq)
-           echo "REQUIRED_PATH=${CMD}" >> "$GITHUB_OUTPUT"
+           CMD=$(git diff --name-only origin/main..${{github.sha}} | xargs dirname | sort | uniq | tr '\n' ' ')
+           echo "REQUIRED_PATH=$CMD" >> "$GITHUB_OUTPUT"
 
        - name: Echo current app
          run: echo ${{steps.requirement.outputs.REQUIRED_PATH}}
