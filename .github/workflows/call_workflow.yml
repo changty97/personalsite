@@ -20,9 +20,9 @@ jobs:
          id: requirement
          run: ./.github/set_dicipline_var.sh
 
-       # - name: Echo current app
-       #   run: |
-       #     echo ${{steps.requirement.outputs.REQUIRED_PATH}}
+       - name: Echo current app
+         run: |
+           echo $CURRENT_DICIPLINE
            
 
    # get-current-app:
@@ -37,6 +37,6 @@ jobs:
 
    call-lint:
      needs: required-paths
-     if: ${{ !contains($env.CURRENT_APP, 'customer-platform') }}
+     # if: ${{ !contains($CURRENT_DICIPLINE, 'customer-platform') }}
      uses: ./.github/workflows/lint.yml
      secrets: inherit # pass all secrets
