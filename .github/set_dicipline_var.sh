@@ -8,7 +8,7 @@ echo $GET_DICIPLINE_CHANGES
 for i in "${DISCIPLINES[@]}"
 do
   echo "$i"
-  if [ $i =~ .*$GET_DICIPLINE_CHANGES.* ]; then
+  if [[ $i =~ .*$GET_DICIPLINE_CHANGES.* ]]; then
     CURRENT_DISCIPLINE = $i
     echo "$CURRENT_DISCIPLINE"
   fi
