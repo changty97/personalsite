@@ -20,23 +20,9 @@ jobs:
          id: requirement
          run: echo "CURRENT_DISCIPLINE=$(./.github/set_dicipline_var.sh)" >> $GITHUB_OUTPUT
 
-       - name: Echo current app
-         run: |
-           echo ${{steps.requirement.outputs.CURRENT_DISCIPLINE}}
-           
-
-   # get-current-app:
-   #   runs-on: [ubuntu-latest]
-   #   needs: required-paths
-   #   if: ${{ !contains(needs.required-paths.outputs.required, 'customer-platform') }}
-   #   env:
-   #      CURRENT_APP: ${{ needs.required-paths.outputs.required }}
-   #   steps:
-   #     - name: Echo current app
-   #       run: echo ${{env.CURRENT_APP}}
-
    call-lint:
      needs: required-paths
-     if: ${{ needs.required-paths.outputs.required != '' }}
      uses: ./.github/workflows/lint.yml
+     with:
+       CURRENT_DISCIPLINE: needs.required-paths.outputs.required
      secrets: inherit # pass all secrets
