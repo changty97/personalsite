@@ -23,7 +23,6 @@ jobs:
 
    call-lint:
      needs: required-paths
-     # if: ${{ needs.required-paths.outputs.required != '' }}
      uses: ./.github/workflows/lint.yml
      with:
        CURRENT_DISCIPLINE: ${{ needs.required-paths.outputs.required }}
