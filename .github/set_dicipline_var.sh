@@ -6,8 +6,8 @@ CURRENT_DISCIPLINE="N/A"
 
 for i in "${DISCIPLINES[@]}"
 do
-    echo $i
     if echo "$i" | grep -q "$GET_DICIPLINE_CHANGES"; then
+        echo $i
         $CURRENT_DISCIPLINE=$i
         break
     fi
