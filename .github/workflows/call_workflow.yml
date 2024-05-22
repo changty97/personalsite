@@ -19,6 +19,7 @@ jobs:
        - name: Get Required Directories
          id: requirement
          run: echo "CURRENT_DISCIPLINE=$(./.github/set_dicipline_var.sh)" >> $GITHUB_OUTPUT
+       - run: echo ${{steps.requirement.outputs.CURRENT_DISCIPLINE}}
 
    call-lint:
      needs: required-paths
