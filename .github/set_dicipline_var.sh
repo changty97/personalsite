@@ -8,6 +8,7 @@ for i in "${DISCIPLINES[@]}"
 do
     if echo "$i" | grep -q "$GET_DICIPLINE_CHANGES"; then
         CURRENT_DISCIPLINE=$i
+        break
     else
         CURRENT_DISCIPLINE="N/A"
     fi
