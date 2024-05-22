@@ -20,8 +20,9 @@ jobs:
   make-lint:
     runs-on: [ubuntu-latest]
     steps:
-      - name: Echo sha
-        run: echo ${{ github.head_ref }}/${{ github.sha }}
+      - name: Echo ${{ inputs.CURRENT_DISCIPLINE }}
+        run: echo ${{ inputs.CURRENT_DISCIPLINE }}
+        
       - name: Get Commit
         run: gh api /repos/changty97/personalsite/commits/${{github.sha}}/pulls
         
