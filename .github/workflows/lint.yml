@@ -1,22 +1,31 @@
 name: Lint
 
 on:
-  push:
-    branches:
-    - main
-  pull_request:
-    branches:
-    - main
+  workflow_call:
+    inputs:
+      CURRENT_DISCIPLINE:
+        required: true
+        type: string
+  # push:
+  #   branches:
+  #   - main
+  # pull_request:
+  #   branches:
+  #   - main
 
 env:
   GH_TOKEN: ${{ github.token }}
   
 jobs:
   make-lint:
+    if: |
+      !contains(inputs.CURRENT_DISCIPLINE, 'N/A') &&
+      !contains(inputs.CURRENT_DISCIPLINE, 'src')
     runs-on: [ubuntu-latest]
     steps:
-      - name: Echo sha
-        run: echo ${{ github.head_ref }}/${{ github.sha }}
+      - name: Echo ${{ inputs.CURRENT_DISCIPLINE }}
+        run: echo ${{ inputs.CURRENT_DISCIPLINE }}
+        
       - name: Get Commit
         run: gh api /repos/changty97/personalsite/commits/${{github.sha}}/pulls
         

@@ -3,21 +3,27 @@ name: CI Requirements Check
 on:
   push:
 
+env:
+      GITHUB_SHA: ${{github.sha}}
+   
 jobs:
    required-paths:
      runs-on: [ubuntu-latest]
-     strategy:
-       matrix:
-          discipline: [ public, src]
+     outputs:
+       required: ${{ steps.requirement.outputs.CURRENT_DISCIPLINE }}
      steps:
        - uses: actions/checkout@v4
          with:
            fetch-depth: 0
 
        - name: Get Required Directories
-         run: echo "REQUIRED_PATH=$(git diff --name-only main...${{ GITHUB_SHA }} | grep -c >&1 ${{ matrix.discipline }})" >> $GITHUB_ENV
+         id: requirement
+         run: echo "CURRENT_DISCIPLINE=$(./.github/set_dicipline_var.sh)" >> $GITHUB_OUTPUT
+       - run: echo ${{steps.requirement.outputs.CURRENT_DISCIPLINE}}
 
    call-lint:
-     # needs: required-paths
-     # if: ${{ success() && env.REQUIRED_PATH >= 1 }}
-     uses: ${{ github.workspace }}/.github/workflows/lint.yml
+     needs: required-paths
+     uses: ./.github/workflows/lint.yml
+     with:
+       CURRENT_DISCIPLINE: ${{ needs.required-paths.outputs.required }}
+     secrets: inherit # pass all secrets
