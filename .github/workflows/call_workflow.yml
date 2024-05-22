@@ -37,6 +37,6 @@ jobs:
 
    call-lint:
      needs: required-paths
-     # if: ${{ !contains($CURRENT_DICIPLINE, 'customer-platform') }}
+     if: ${{ needs.required-paths.outputs.required != '' }}
      uses: ./.github/workflows/lint.yml
      secrets: inherit # pass all secrets
