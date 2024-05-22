@@ -19,7 +19,7 @@ env:
 jobs:
   make-lint:
     if: |
-      ${{ !contains(inputs.CURRENT_DISCIPLINE, 'N/A') }}
+      ${{ !startsWith(inputs.CURRENT_DISCIPLINE, 'N/A') }}
     runs-on: [ubuntu-latest]
     steps:
       - name: Echo ${{ inputs.CURRENT_DISCIPLINE }}
