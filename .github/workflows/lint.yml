@@ -19,7 +19,7 @@ env:
 jobs:
   make-lint:
     runs-on: [ubuntu-latest]
-    if: ${{ inputs.CURRENT_DISCIPLINE != "" }}
+    if: ${{ inputs.CURRENT_DISCIPLINE != '' }}
     steps:
       - name: Echo ${{ inputs.CURRENT_DISCIPLINE }}
         run: echo ${{ inputs.CURRENT_DISCIPLINE }}
