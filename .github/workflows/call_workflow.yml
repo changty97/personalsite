@@ -24,5 +24,5 @@ jobs:
      needs: required-paths
      uses: ./.github/workflows/lint.yml
      with:
-       CURRENT_DISCIPLINE: needs.required-paths.outputs.required
+       CURRENT_DISCIPLINE: ${{ needs.required-paths.outputs.required }}
      secrets: inherit # pass all secrets
