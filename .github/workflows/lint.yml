@@ -2,6 +2,10 @@ name: Lint
 
 on:
   workflow_call:
+    inputs:
+      CURRENT_DISCIPLINE:
+        required: true
+        type: string
   # push:
   #   branches:
   #   - main
