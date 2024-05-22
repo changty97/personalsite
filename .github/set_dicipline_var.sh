@@ -8,7 +8,7 @@ for i in "${DISCIPLINES[@]}"
 do
     if echo "$i" | grep -q "$GET_DICIPLINE_CHANGES"; then
         # CURRENT_DISCIPLINE=$i
-        echo "$CURRENT_DISCIPLINE"
+        echo "$i"
     else
         echo "N/A"
     fi
