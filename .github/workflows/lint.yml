@@ -19,8 +19,7 @@ env:
 jobs:
   make-lint:
     if: |
-      ${{ inputs.CURRENT_DISCIPLINE != N/A }} ||
-      ${{ !contains(inputs.CURRENT_DISCIPLINE, 'customer-platform') }}
+      ${{ !contains(inputs.CURRENT_DISCIPLINE, 'N/A')
     runs-on: [ubuntu-latest]
     steps:
       - name: Echo ${{ inputs.CURRENT_DISCIPLINE }}
