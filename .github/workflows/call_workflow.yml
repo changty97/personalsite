@@ -2,9 +2,11 @@ name: CI Requirements Check
 
 on:
   push:
+  pull_request_review:
 
 jobs:
    required-paths:
+     if: github.event_name == 'pull_request_review'
      runs-on: [ubuntu-latest]
      strategy:
        matrix:
