@@ -2,6 +2,7 @@ name: CI Requirements Check
 
 on:
   push:
+  pull_request_review:
 
 jobs:
    required-paths:
@@ -15,9 +16,10 @@ jobs:
            fetch-depth: 0
 
        - name: Get Required Directories
-         run: echo "REQUIRED_PATH=$(git diff --name-only main...${{ GITHUB_SHA }} | grep -c >&1 ${{ matrix.discipline }})" >> $GITHUB_ENV
+         run: echo "REQUIRED_PATH=$(git diff --name-only orgin/main...${{ github.sha }} | grep -c >&1 ${{ matrix.discipline }})" >> $GITHUB_ENV
 
    call-lint:
+     if: github.event_name == 'pull_request_review'
      # needs: required-paths
      # if: ${{ success() && env.REQUIRED_PATH >= 1 }}
-     uses: ${{ github.workspace }}/.github/workflows/lint.yml
+     uses: ./.github/workflows/lint.yml
