@@ -23,6 +23,10 @@ jobs:
           SECRET_HANDLE=$(echo "$GENERATED_SECRET")
           echo "our-secret=$SECRET_HANDLE" >> $GITHUB_OUTPUT
         # BINARY_ENCRYPTED_SECRET=$(echo -n "$OUR_SECRET" | openssl enc -aes-256-cbc -pbkdf2 -salt -k "${{ secrets.ENCRYPTION_PASSWORD }}");
+      - run: |
+          RETRIEVED_SECRET=$(echo "$our-secret")
+          echo "::add-mask::$RETRIEVED_SECRET"
+          echo "We retrieved our masked secret: $RETRIEVED_SECRET"
     outputs:
       read-secret: ${{ steps.read-secret.outputs.our-secret }}
 
