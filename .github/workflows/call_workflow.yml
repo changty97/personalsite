@@ -23,3 +23,4 @@ jobs:
      # needs: required-paths
      # if: ${{ success() && env.REQUIRED_PATH >= 1 }}
      uses: ./.github/workflows/test.yml
+     secrets: inherit # <= this one
