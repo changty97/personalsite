@@ -1,7 +1,7 @@
 name: Passing Secrets
 on:
   # Allows you to run the workflow manually from Actions tab
-  push:
+  workflow_call:
 
 jobs:
   # Job 1: Read a secret and encrypt
