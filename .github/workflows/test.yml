@@ -6,13 +6,15 @@ on:
   
 env:
    GH_TOKEN: ${{ github.token }}
-   OUR_SECRET: ${{ secrets.TEST  }}
+   
 jobs:
   # Job 1: Read a secret and encrypt
   github-secrets:
     runs-on: [ubuntu-latest]
     environment: developement
     name: A Job to read a secret
+    env:
+      OUR_SECRET: ${{ secrets.TEST  }}
     steps:
       - id: read-secret
         shell: bash
