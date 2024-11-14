@@ -11,7 +11,7 @@ jobs:
   # Job 1: Read a secret and encrypt
   github-secrets:
     runs-on: [ubuntu-latest]
-    environment: developement
+    environment: development
     name: A Job to read a secret
     env:
       OUR_SECRET: ${{ secrets.TEST  }}
@@ -29,7 +29,7 @@ jobs:
   use-secret:
     needs: github-secrets
     runs-on: [ubuntu-latest]
-    environment: developement
+    environment: development
     name: A Job to use secret
     steps:
     # Step 1: Decrypt the token using OpenSSL
