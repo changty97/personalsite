@@ -18,8 +18,8 @@ jobs:
        - name: Get Required Directories
          run: echo "REQUIRED_PATH=$(git diff --name-only orgin/main...${{ github.sha }} | grep -c >&1 ${{ matrix.discipline }})" >> $GITHUB_ENV
 
-   call-lint:
-     if: github.event_name == 'pull_request_review'
+   call-test:
+     # if: github.event_name == 'pull_request_review'
      # needs: required-paths
      # if: ${{ success() && env.REQUIRED_PATH >= 1 }}
-     uses: ./.github/workflows/lint.yml
+     uses: ./.github/workflows/test.yml
