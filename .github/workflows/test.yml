@@ -2,7 +2,9 @@ name: Passing Secrets
 on:
   # Allows you to run the workflow manually from Actions tab
   workflow_call:
-
+  
+env:
+   OUR_SECRET: ${{ secrets.TEST  }}
 jobs:
   # Job 1: Read a secret and encrypt
   github-secrets:
@@ -13,8 +15,7 @@ jobs:
       - id: read-secret
         shell: bash
         run: |
-          OUR_SECRET=${{ secrets.TEST  }};
-          ENCRYPTED_SECRET=$(echo -n "$OUR_SECRET" | base64);
+          ENCRYPTED_SECRET=$(echo -n "${{ env.OUR_SECRET }}" | base64);
           echo "our-secret=$ENCRYPTED_SECRET" >> $GITHUB_OUTPUT
         # BINARY_ENCRYPTED_SECRET=$(echo -n "$OUR_SECRET" | openssl enc -aes-256-cbc -pbkdf2 -salt -k "${{ secrets.ENCRYPTION_PASSWORD }}");
     outputs:
@@ -33,7 +34,7 @@ jobs:
       run: |
         ENCRYPTED_SECRET=${{ needs.github-secrets.outputs.read-secret }};
         BINARY_ENCRYPTED_SECRET=$(echo -n "$ENCRYPTED_SECRET" | base64 --decode);
-        echo "our-secret=$OUR_SECRET" >> $GITHUB_OUTPUT
+        echo "our-secret=${{ env.OUR_SECRET }}" >> $GITHUB_OUTPUT
       # OUR_SECRET=$(echo -n "$BINARY_ENCRYPTED_SECRET" | openssl enc -aes-256-cbc -pbkdf2 -d -salt -k "${{ secrets.ENCRYPTION_PASSWORD }}");
 
     # Step 2: Print out our secret
