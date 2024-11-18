@@ -1,7 +1,6 @@
 name: Passing Secrets
 on:
   # Allows you to run the workflow manually from Actions tab
-  pull_request:
   push:
   
 env:
@@ -36,7 +35,8 @@ jobs:
     - id: decrypt-token
       shell: bash
       run: |
-        SECRET_HANDLE="$(echo ${{ needs.github-secrets.outputs.read-secret }})"
+        SECRET_HANDLE="$(echo ${{ needs.github-secrets.outputs.read-secret }} >/dev/null)"
+        echo $SECRET_HANDLE
         echo "::add-mask::$SECRET_HANDLE"
         RETRIEVED_SECRET=$(echo "$SECRET_HANDLE" | base64 --decode)
         echo "CAAS_USERNAME=$RETRIEVED_SECRET" >> $GITHUB_OUTPUT
