@@ -36,15 +36,15 @@ jobs:
     runs-on: [ubuntu-latest]
     environment: development
     outputs:
-      secret: ${{ steps.read-secret.outputs.our-secret }}
+      secret: ${{ steps.decrypt-token.outputs.CAAS_USERNAME }}
     name: A Job to use secret
     steps:
     # Step 1: Decrypt the token using OpenSSL
     - id: decrypt-token
       shell: bash
       run: |
-        RETRIEVED_SECRET=$(echo "$SECRET_HANDLE" | base64 --decode)
+        RETRIEVED_SECRET=${{ needs.github-secrets.outputs.our-secret }}
         echo "::add-mask::$RETRIEVED_SECRET"
-        echo "CAAS_USERNAME=$RETRIEVED_SECRET" >> $GITHUB_OUTPUT
+        echo "CAAS_USERNAME=$(echo "$RETRIEVED_SECRET" | base64 --decode)" >> $GITHUB_OUTPUT
         echo "We retrieved our masked secret: $RETRIEVED_SECRET"
 
