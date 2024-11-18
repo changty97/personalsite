@@ -4,8 +4,7 @@ on:
   push:
   
 env:
-   GH_TOKEN: ${{ github.token }}
-   GITHUB_TOKEN: ${{ github.token }}
+   GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
 jobs:
   # Job 1: Read a secret and encrypt
