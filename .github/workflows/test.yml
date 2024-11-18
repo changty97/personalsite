@@ -37,6 +37,7 @@ jobs:
       secret: ${{ steps.decrypt-token.outputs.secret }}
     name: A Job to use secret
     steps:
+    - uses: actions/checkout@v4
     # Step 1: Decrypt the token using OpenSSL
     - id: decrypt-token
       shell: bash
