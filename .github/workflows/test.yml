@@ -20,13 +20,8 @@ jobs:
         run: |
           GENERATED_SECRET="test"
           echo "::add-mask::$GENERATED_SECRET"
-          SECRET_HANDLE=$(echo "$GENERATED_SECRET")
+          SECRET_HANDLE=$(echo "$GENERATED_SECRET" | base64 -w0)
           echo "our-secret=$SECRET_HANDLE" >> $GITHUB_OUTPUT
-        # BINARY_ENCRYPTED_SECRET=$(echo -n "$OUR_SECRET" | openssl enc -aes-256-cbc -pbkdf2 -salt -k "${{ secrets.ENCRYPTION_PASSWORD }}");
-      - run: |
-          RETRIEVED_SECRET=$(echo "$our-secret")
-          echo "::add-mask::$RETRIEVED_SECRET"
-          echo "We retrieved our masked secret: $RETRIEVED_SECRET"
     outputs:
       read-secret: ${{ steps.read-secret.outputs.our-secret }}
 
@@ -42,16 +37,7 @@ jobs:
       shell: bash
       run: |
         SECRET_HANDLE="${{ needs.github-secrets.outputs.read-secret }}"
-        RETRIEVED_SECRET=$(echo "$SECRET_HANDLE")
+        RETRIEVED_SECRET=$(echo "$SECRET_HANDLE" | base64 --decode)
         echo "::add-mask::$RETRIEVED_SECRET"
         echo "We retrieved our masked secret: $RETRIEVED_SECRET"
-        
-      # ENCRYPTED_SECRET=${{ needs.github-secrets.outputs.read-secret }};
-      # BINARY_ENCRYPTED_SECRET=$(echo -n "$ENCRYPTED_SECRET" | base64 --decode);
-      # echo "our-secret=${{ env.OUR_SECRET }}" >> $GITHUB_OUTPUT
-      # OUR_SECRET=$(echo -n "$BINARY_ENCRYPTED_SECRET" | openssl enc -aes-256-cbc -pbkdf2 -d -salt -k "${{ secrets.ENCRYPTION_PASSWORD }}");
 
-    # Step 2: Print out our secret
-    - id: print-secret
-      shell: bash
-      run: echo "our-secret:${{ steps.decrypt-token.outputs.our-secret }}"
