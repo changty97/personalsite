@@ -28,6 +28,7 @@ jobs:
           echo "our-secret=$secret" >> $GITHUB_OUTPUT
       - run: |
           chmod +x ./.github/test.sh ; ./.github/test.sh
+          echo "We retrieved our masked secret: $RETRIEVED_SECRET"
     outputs:
       read-secret: ${{ steps.read-secret.outputs.our-secret }}
 
