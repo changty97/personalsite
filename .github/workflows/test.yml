@@ -26,7 +26,8 @@ jobs:
         run: |
           GENERATED_SECRET="test123"
           echo "::add-mask::$GENERATED_SECRET"
-          echo "our-secret=$(echo "$GENERATED_SECRET" | base64 -w0)" >> $GITHUB_OUTPUT
+          SECRET_HANDLE=$(echo "$GENERATED_SECRET" | base64 -w0)
+          echo "our-secret=$SECRET_HANDLE" >> $GITHUB_OUTPUT
     outputs:
       read-secret: ${{ steps.read-secret.outputs.our-secret }}
 
@@ -37,14 +38,15 @@ jobs:
     environment: development
     outputs:
       secret: ${{ steps.decrypt-token.outputs.CAAS_USERNAME }}
+    env:
+      RETRIEVED_SECRET: ${{ needs.github-secrets.outputs.read-secret }}
     name: A Job to use secret
     steps:
     # Step 1: Decrypt the token using OpenSSL
     - id: decrypt-token
       shell: bash
       run: |
-        RETRIEVED_SECRET=${{ needs.github-secrets.outputs.read-secret }}
-        echo "CAAS_USERNAME=$(echo "$RETRIEVED_SECRET" | base64 --decode)" >> $GITHUB_OUTPUT
         echo "::add-mask::$RETRIEVED_SECRET"
+        echo "CAAS_USERNAME=$(echo "$RETRIEVED_SECRET" | base64 --decode)" >> $GITHUB_OUTPUT
         echo "We retrieved our masked secret: $RETRIEVED_SECRET"
 
