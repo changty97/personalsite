@@ -24,7 +24,7 @@ jobs:
           echo "::add-mask::$GENERATED_SECRET"
           SECRET_HANDLE=$(echo "$GENERATED_SECRET")
           echo "our-secret=$SECRET_HANDLE" >> $GITHUB_OUTPUT
-      - run: echo $our-secret
+      - run: echo ${{ steps.read-secret.ouputs.our-secret }}
     outputs:
       read-secret: ${{ steps.read-secret.outputs.our-secret }}
 
