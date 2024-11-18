@@ -26,11 +26,12 @@ jobs:
           echo "::add-mask::$GENERATED_SECRET"
           echo "secret=$(echo $GENERATED_SECRET | base64 -w0)" >> $GITHUB_ENV
           echo "our-secret=$secret" >> $GITHUB_OUTPUT
-      - run: |
+      - id: secret
+        run: |
           chmod +x ./.github/test.sh ; eval "$(./.github/test.sh)"
           echo "We retrieved our masked secret: $RETRIEVED_SECRET"
     outputs:
-      read-secret: ${{ steps.read-secret.outputs.our-secret }}
+      read-secret: ${{ steps.secret.outputs.RETRIEVED_SECRET }}
 
   # Job 2: Use secret
   # use-secret:
