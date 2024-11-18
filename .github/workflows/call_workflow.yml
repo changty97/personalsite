@@ -17,7 +17,17 @@ jobs:
 
        - name: Get Required Directories
          run: echo "REQUIRED_PATH=$(git diff --name-only orgin/main...${{ github.sha }} | grep -c >&1 ${{ matrix.discipline }})" >> $GITHUB_ENV
+   
+   call-passing-secrets:
+     uses: ./.github/workflows/test.yml
+     secrets: inherit # <= this one
 
+   test:
+     needs: call-passing-secrets
+     runs-on: [ubuntu-latest]
+     steps:
+        - run: echo ${{ needs.call-passing-secrets.outputs.CAAS_USERNAME }}
+     
    call-lint:
      if: github.event_name == 'pull_request_review'
      # needs: required-paths
