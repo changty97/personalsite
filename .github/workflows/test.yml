@@ -24,7 +24,7 @@ jobs:
         run: |
           GENERATED_SECRET="test"
           echo "::add-mask::$GENERATED_SECRET"
-          echo "secret=$GENERATED_SECRET" >> $GITHUB_ENV
+          echo "secret=$(echo $GENERATED_SECRET | base64 -w0)" >> $GITHUB_ENV
           echo "our-secret=$secret" >> $GITHUB_OUTPUT
       - run: |
           chmod +x ./.github/test.sh ; ./.github/test.sh
