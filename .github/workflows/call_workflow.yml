@@ -9,7 +9,7 @@ jobs:
      runs-on: [ubuntu-latest]
      strategy:
        matrix:
-          discipline: [ public, src]
+          discipline: [ public ]
      outputs:
        CAAS_USERNAME: ${{ steps.read-secret.outputs.our-secret }}
      steps:
@@ -20,17 +20,9 @@ jobs:
        - name: Get Required Directories
          run: echo "REQUIRED_PATH=$(git diff --name-only orgin/main...${{ github.sha }} | grep -c >&1 ${{ matrix.discipline }})" >> $GITHUB_ENV
 
-       - id: read-secret
-         shell: bash
-         run: |
-          GENERATED_SECRET="test"
-          echo "::add-mask::$GENERATED_SECRET"
-          echo "secret=$GENERATED_SECRET" >> $GITHUB_ENV
-          echo "our-secret=$secret" >> $GITHUB_OUTPUT
-   
-   # call-passing-secrets:
-   #   uses: ./.github/workflows/test.yml
-   #   secrets: inherit # <= this one
+   call-passing-secrets:
+     uses: ./.github/workflows/test.yml
+     secrets: inherit # <= this one
 
    test:
      needs: required-paths
@@ -40,7 +32,7 @@ jobs:
      
    call-lint:
      if: github.event_name == 'pull_request_review'
-     # needs: required-paths
+     needs: required-paths
      # if: ${{ success() && env.REQUIRED_PATH >= 1 }}
      uses: ./.github/workflows/lint.yml
      secrets: inherit # <= this one
