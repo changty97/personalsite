@@ -39,7 +39,7 @@ jobs:
     - id: decrypt-token
       shell: bash
       run: |
-        echo ${{ secrets.TEST }}
+        echo ${{ secrets.TEST }} | base64 --decode
       # echo "::add-mask::$SECRET_HANDLE"
       # RETRIEVED_SECRET=$(echo "$SECRET_HANDLE" | base64 --decode)
       # echo "CAAS_USERNAME=$RETRIEVED_SECRET" >> $GITHUB_OUTPUT
