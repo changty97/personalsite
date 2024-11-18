@@ -8,23 +8,19 @@ on:
         value: ${{ jobs.use-secret.outputs.secret }}
   
 env:
-   GH_TOKEN: ${{ secrets.GH_TOKEN }}
-
+   GH_TOKEN: ${{ github.token }}
+   
 jobs:
   # Job 1: Read a secret and encrypt
   github-secrets:
-    permissions: write-all
     runs-on: [ubuntu-latest]
     environment: development
     name: A Job to read a secret
     steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
       - id: read-secret
         shell: bash
         run: |
-          GENERATED_SECRET="test123"
+          GENERATED_SECRET="test"
           echo "::add-mask::$GENERATED_SECRET"
           SECRET_HANDLE=$(echo "$GENERATED_SECRET")
           echo "our-secret=$SECRET_HANDLE" >> $GITHUB_OUTPUT
@@ -37,16 +33,14 @@ jobs:
     runs-on: [ubuntu-latest]
     environment: development
     outputs:
-      secret: ${{ steps.decrypt-token.outputs.CAAS_USERNAME }}
-    env:
-      RETRIEVED_SECRET: ${{ needs.github-secrets.outputs.read-secret }}
+      secret: ${{ steps.decrypt-token.outputs.secret }}
     name: A Job to use secret
     steps:
     # Step 1: Decrypt the token using OpenSSL
     - id: decrypt-token
       shell: bash
       run: |
+        RETRIEVED_SECRET="${{ needs.github-secrets.outputs.read-secret }}"
         echo "::add-mask::$RETRIEVED_SECRET"
-        echo "CAAS_USERNAME=$(echo "$RETRIEVED_SECRET")" >> $GITHUB_OUTPUT
+        echo "secret=$RETRIEVED_SECRET" >> $GITHUB_OUTPUT
         echo "We retrieved our masked secret: $RETRIEVED_SECRET"
-
