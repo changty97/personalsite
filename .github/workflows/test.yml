@@ -26,7 +26,7 @@ jobs:
         run: |
           GENERATED_SECRET="test"
           echo "::add-mask::$GENERATED_SECRET"
-          SECRET_HANDLE=$(echo "$GENERATED_SECRET" | base64 -w0)
+          SECRET_HANDLE=$(echo "$GENERATED_SECRET")
           echo "our-secret=$SECRET_HANDLE" >> $GITHUB_OUTPUT
     outputs:
       read-secret: ${{ steps.read-secret.outputs.our-secret }}
@@ -47,6 +47,6 @@ jobs:
       shell: bash
       run: |
         echo "::add-mask::$RETRIEVED_SECRET"
-        echo "CAAS_USERNAME=$(echo "$RETRIEVED_SECRET" | base64 --decode)" >> $GITHUB_OUTPUT
+        echo "CAAS_USERNAME=$(echo "$RETRIEVED_SECRET")" >> $GITHUB_OUTPUT
         echo "We retrieved our masked secret: $RETRIEVED_SECRET"
 
