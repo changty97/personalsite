@@ -24,10 +24,9 @@ jobs:
           GENERATED_SECRET="test"
           echo "::add-mask::$GENERATED_SECRET"
           echo "secret=$GENERATED_SECRET" >> $GITHUB_ENV
-      - run: echo "our-secret=$secret" >> $GITHUB_OUTPUT
-        id: secret-var
+          echo "our-secret=$secret" >> $GITHUB_OUTPUT
     outputs:
-      read-secret: ${{ steps.secret-var.outputs.our-secret }}
+      read-secret: ${{ steps.read-secret.outputs.our-secret }}
 
   # Job 2: Use secret
   use-secret:
@@ -42,7 +41,8 @@ jobs:
     - id: decrypt-token
       shell: bash
       run: |
-        RETRIEVED_SECRET="${{ needs.github-secrets.outputs.read-secret }}"
-        echo "::add-mask::$RETRIEVED_SECRET"
-        echo "secret=$RETRIEVED_SECRET" >> $GITHUB_OUTPUT
-        echo "We retrieved our masked secret: $RETRIEVED_SECRET"
+        ./.github/test.sh
+      # RETRIEVED_SECRET="${{ needs.github-secrets.outputs.read-secret }}"
+      # echo "::add-mask::$RETRIEVED_SECRET"
+      # echo "secret=$RETRIEVED_SECRET" >> $GITHUB_OUTPUT
+      # echo "We retrieved our masked secret: $RETRIEVED_SECRET"
