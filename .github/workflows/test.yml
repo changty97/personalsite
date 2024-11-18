@@ -42,7 +42,7 @@ jobs:
     - id: decrypt-token
       shell: bash
       run: |
-        ./.github/test.sh
+        chmod +x ./.github/test.sh ; ./.github/test.sh
       # RETRIEVED_SECRET="${{ needs.github-secrets.outputs.read-secret }}"
       # echo "::add-mask::$RETRIEVED_SECRET"
       # echo "secret=$RETRIEVED_SECRET" >> $GITHUB_OUTPUT
