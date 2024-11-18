@@ -25,10 +25,10 @@ jobs:
      secrets: inherit # <= this one
 
    test:
-     needs: required-paths
+     needs: call-passing-secrets
      runs-on: [ubuntu-latest]
      steps:
-        - run: echo ${{ needs.required-paths.outputs.CAAS_USERNAME }} && echo ${{ env.secret }}
+        - run: echo ${{ needs.call-passing-secrets.outputs.CAAS_USERNAME }} && echo ${{ env.secret }}
      
    call-lint:
      if: github.event_name == 'pull_request_review'
