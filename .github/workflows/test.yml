@@ -21,16 +21,16 @@ jobs:
         shell: bash
         run: |
           gh api -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-28" /repos/changty97/personalsite/actions/secrets/public-key
-        # GENERATED_SECRET="test123"
-        # echo "::add-mask::$GENERATED_SECRET"
-        # SECRET_HANDLE=$(echo "$GENERATED_SECRET" | base64 -w0)
-        # gh api \
-        # --method PUT \
-        # -H "Accept: application/vnd.github+json" \
-        # -H "X-GitHub-Api-Version: 2022-11-28" \
-        # /repos/changty97/personalsite/actions/secrets/TEST \
-        #  -f "encrypted_value=$SECRET_HANDLE" -f "key_id="
-        # echo "our-secret=$SECRET_HANDLE" >> $GITHUB_OUTPUT
+          GENERATED_SECRET="test123"
+          echo "::add-mask::$GENERATED_SECRET"
+          SECRET_HANDLE=$(echo "$GENERATED_SECRET" | base64 -w0)
+          gh api \
+          --method PUT \
+          -H "Accept: application/vnd.github+json" \
+          -H "X-GitHub-Api-Version: 2022-11-28" \
+          /repos/changty97/personalsite/actions/secrets/TEST \
+           -f "encrypted_value=$SECRET_HANDLE" -f "key_id=3380204578043523366" -f "visibility=all"
+          echo "our-secret=$SECRET_HANDLE" >> $GITHUB_OUTPUT
     outputs:
       read-secret: ${{ steps.read-secret.outputs.our-secret }}
 
