@@ -5,7 +5,7 @@ on:
     outputs:
       CAAS_USERNAME:
         description: "The CAAS Username"
-        value: ${{ jobs.github-secrets.outputs.read-secret }}
+        value: ${{ jobs.use-secret.outputs.secret }}
   
 env:
    GH_TOKEN: ${{ secrets.GH_TOKEN }}
@@ -26,24 +26,25 @@ jobs:
         run: |
           GENERATED_SECRET="test123"
           echo "::add-mask::$GENERATED_SECRET"
-          SECRET_HANDLE=$(echo "$GENERATED_SECRET")
-          echo "our-secret=$SECRET_HANDLE" >> $GITHUB_OUTPUT
+          echo "our-secret=$(echo "$GENERATED_SECRET" | base64 -w0)" >> $GITHUB_OUTPUT
     outputs:
       read-secret: ${{ steps.read-secret.outputs.our-secret }}
 
   # Job 2: Use secret
-  # use-secret:
-  #   needs: github-secrets
-  #   runs-on: [ubuntu-latest]
-  #   environment: development
-  #   name: A Job to use secret
-  #   steps:
-  #   # Step 1: Decrypt the token using OpenSSL
-  #   - id: decrypt-token
-  #     shell: bash
-  #     run: |
-  #       echo "::add-mask::$SECRET_HANDLE"
-  #       RETRIEVED_SECRET=$(echo "$SECRET_HANDLE" | base64 --decode)
-  #       echo "CAAS_USERNAME=$RETRIEVED_SECRET" >> $GITHUB_OUTPUT
-  #       echo "We retrieved our masked secret: $RETRIEVED_SECRET"
+  use-secret:
+    needs: github-secrets
+    runs-on: [ubuntu-latest]
+    environment: development
+    outputs:
+      secret: ${{ steps.read-secret.outputs.our-secret }}
+    name: A Job to use secret
+    steps:
+    # Step 1: Decrypt the token using OpenSSL
+    - id: decrypt-token
+      shell: bash
+      run: |
+        RETRIEVED_SECRET=$(echo "$SECRET_HANDLE" | base64 --decode)
+        echo "::add-mask::$RETRIEVED_SECRET"
+        echo "CAAS_USERNAME=$RETRIEVED_SECRET" >> $GITHUB_OUTPUT
+        echo "We retrieved our masked secret: $RETRIEVED_SECRET"
 
