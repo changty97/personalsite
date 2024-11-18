@@ -20,7 +20,7 @@ jobs:
       - id: read-secret
         shell: bash
         run: |
-          GENERATED_SECRET="test"
+          GENERATED_SECRET="test123"
           echo "::add-mask::$GENERATED_SECRET"
           SECRET_HANDLE=$(echo "$GENERATED_SECRET" | base64 -w0)
           gh secret set TEST --body "$SECRET_HANDLE"
@@ -40,6 +40,9 @@ jobs:
       shell: bash
       run: |
         echo ${{ secrets.TEST }} > key
+        if [ "${{ secrets.TEST }}" == "test123" ]; then
+          echo "yes"
+        fi
       # echo "::add-mask::$SECRET_HANDLE"
       # RETRIEVED_SECRET=$(echo "$SECRET_HANDLE" | base64 --decode)
       # echo "CAAS_USERNAME=$RETRIEVED_SECRET" >> $GITHUB_OUTPUT
