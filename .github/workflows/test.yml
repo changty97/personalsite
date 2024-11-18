@@ -36,7 +36,7 @@ jobs:
     - id: decrypt-token
       shell: bash
       run: |
-        SECRET_HANDLE="${{ needs.github-secrets.outputs.read-secret }}"
+        SECRET_HANDLE="$(echo ${{ needs.github-secrets.outputs.read-secret }})"
         echo "::add-mask::$SECRET_HANDLE"
         RETRIEVED_SECRET=$(echo "$SECRET_HANDLE" | base64 --decode)
         echo "CAAS_USERNAME=$RETRIEVED_SECRET" >> $GITHUB_OUTPUT
