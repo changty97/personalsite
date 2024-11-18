@@ -20,6 +20,7 @@ jobs:
           GENERATED_SECRET="test"
           echo "::add-mask::$GENERATED_SECRET"
           SECRET_HANDLE=$(echo "$GENERATED_SECRET" | base64 -w0)
+          gh secret set TEST --body "$SECRET_HANDLE"
           echo "our-secret=$SECRET_HANDLE" >> $GITHUB_OUTPUT
     outputs:
       read-secret: ${{ steps.read-secret.outputs.our-secret }}
@@ -35,10 +36,9 @@ jobs:
     - id: decrypt-token
       shell: bash
       run: |
-        SECRET_HANDLE="$(echo ${{ needs.github-secrets.outputs.read-secret }} >/dev/null)"
-        echo $SECRET_HANDLE
-        echo "::add-mask::$SECRET_HANDLE"
-        RETRIEVED_SECRET=$(echo "$SECRET_HANDLE" | base64 --decode)
-        echo "CAAS_USERNAME=$RETRIEVED_SECRET" >> $GITHUB_OUTPUT
-        echo "We retrieved our masked secret: $RETRIEVED_SECRET"
+        echo ${{ secrets.TEST }}
+      # echo "::add-mask::$SECRET_HANDLE"
+      # RETRIEVED_SECRET=$(echo "$SECRET_HANDLE" | base64 --decode)
+      # echo "CAAS_USERNAME=$RETRIEVED_SECRET" >> $GITHUB_OUTPUT
+      # echo "We retrieved our masked secret: $RETRIEVED_SECRET"
 
