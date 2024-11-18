@@ -23,7 +23,8 @@ jobs:
           GENERATED_SECRET="test"
           echo "::add-mask::$GENERATED_SECRET"
           echo "our-secret=$GENERATED_SECRET" >> $GITHUB_OUTPUT
-      - run: echo ${{ env.our-secret }} && echo $GENERATED_SECRET
+          echo "secret=$GENERATED_SECRET" >> $GITHUB_ENV
+      - run: echo $secret
     outputs:
       read-secret: ${{ steps.read-secret.outputs.our-secret }}
 
