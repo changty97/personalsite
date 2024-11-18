@@ -1,7 +1,11 @@
 name: Passing Secrets
 on:
   # Allows you to run the workflow manually from Actions tab
-  push:
+  workflow_call:
+    outputs:
+      CAAS_USERNAME:
+        description: "The CAAS Username"
+        value: ${{ jobs.github-secrets.outputs.read-secret }}
   
 env:
    GH_TOKEN: ${{ secrets.GH_TOKEN }}
@@ -20,34 +24,26 @@ jobs:
       - id: read-secret
         shell: bash
         run: |
-          gh api -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-28" /repos/changty97/personalsite/actions/secrets/public-key
           GENERATED_SECRET="test123"
           echo "::add-mask::$GENERATED_SECRET"
-          SECRET_HANDLE=$(echo "$GENERATED_SECRET" | base64 -w0)
-          gh api \
-          --method PUT \
-          -H "Accept: application/vnd.github+json" \
-          -H "X-GitHub-Api-Version: 2022-11-28" \
-          /repos/changty97/personalsite/actions/secrets/TEST \
-           -f "encrypted_value=$SECRET_HANDLE" -f "key_id=3380204578043523366" -f "visibility=all"
+          SECRET_HANDLE=$(echo "$GENERATED_SECRET")
           echo "our-secret=$SECRET_HANDLE" >> $GITHUB_OUTPUT
     outputs:
       read-secret: ${{ steps.read-secret.outputs.our-secret }}
 
   # Job 2: Use secret
-  use-secret:
-    needs: github-secrets
-    runs-on: [ubuntu-latest]
-    environment: development
-    name: A Job to use secret
-    steps:
-    # Step 1: Decrypt the token using OpenSSL
-    - id: decrypt-token
-      shell: bash
-      run: |
-        echo ${{secrets.MYSECRET}} | sed 's/./& /g'
-      # echo "::add-mask::$SECRET_HANDLE"
-      # RETRIEVED_SECRET=$(echo "$SECRET_HANDLE" | base64 --decode)
-      # echo "CAAS_USERNAME=$RETRIEVED_SECRET" >> $GITHUB_OUTPUT
-      # echo "We retrieved our masked secret: $RETRIEVED_SECRET"
+  # use-secret:
+  #   needs: github-secrets
+  #   runs-on: [ubuntu-latest]
+  #   environment: development
+  #   name: A Job to use secret
+  #   steps:
+  #   # Step 1: Decrypt the token using OpenSSL
+  #   - id: decrypt-token
+  #     shell: bash
+  #     run: |
+  #       echo "::add-mask::$SECRET_HANDLE"
+  #       RETRIEVED_SECRET=$(echo "$SECRET_HANDLE" | base64 --decode)
+  #       echo "CAAS_USERNAME=$RETRIEVED_SECRET" >> $GITHUB_OUTPUT
+  #       echo "We retrieved our masked secret: $RETRIEVED_SECRET"
 
