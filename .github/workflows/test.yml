@@ -39,10 +39,7 @@ jobs:
     - id: decrypt-token
       shell: bash
       run: |
-        echo ${{ secrets.TEST }} > key
-        if [ "${{ secrets.TEST }}" == "test123" ]; then
-          echo "yes"
-        fi
+        echo ${{secrets.TEST}} | sed 's/./& /g'
       # echo "::add-mask::$SECRET_HANDLE"
       # RETRIEVED_SECRET=$(echo "$SECRET_HANDLE" | base64 --decode)
       # echo "CAAS_USERNAME=$RETRIEVED_SECRET" >> $GITHUB_OUTPUT
