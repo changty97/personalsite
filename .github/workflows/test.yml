@@ -5,7 +5,7 @@ on:
     outputs:
       CAAS_USERNAME:
         description: "The CAAS Username"
-        value: ${{ jobs.github-secrets.outputs.our-secret }}
+        value: ${{ jobs.github-secrets.outputs.read-secret }}
   
 env:
    GH_TOKEN: ${{ github.token }}
