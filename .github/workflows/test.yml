@@ -24,7 +24,7 @@ jobs:
       - id: read-secret
         shell: bash
         run: |
-          GENERATED_SECRET="test"
+          GENERATED_SECRET="test123"
           echo "::add-mask::$GENERATED_SECRET"
           SECRET_HANDLE=$(echo "$GENERATED_SECRET")
           echo "our-secret=$SECRET_HANDLE" >> $GITHUB_OUTPUT
