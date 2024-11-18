@@ -29,10 +29,10 @@ jobs:
       - id: secret
         run: |
           chmod +x ./.github/test.sh ; eval "$(./.github/test.sh)"
-          echo "secret=$RETRIEVED_SECRET" >> $GITHUB_OUTPUT
-          echo "We retrieved our masked secret: $RETRIEVED_SECRET"
+          echo "secret1=$RETRIEVED_SECRET" >> $GITHUB_OUTPUT
+          echo "We retrieved our masked secret: $secret1"
     outputs:
-      read-secret: ${{ steps.secret.outputs.secret }}
+      read-secret: ${{ steps.secret.outputs.secret1 }}
 
   # Job 2: Use secret
   # use-secret:
