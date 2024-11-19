@@ -22,10 +22,10 @@ jobs:
       - id: read-secret
         shell: bash
         run: |
-          gh api -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-28" /repos/changty97/personalsite/actions/secrets/public-key
-          GENERATED_SECRET="test"
+          GENERATED_SECRET="t1e2s3t33321z"
           echo "::add-mask::$GENERATED_SECRET"
           gh secret set MYSECRET --body "$GENERATED_SECRET"
+        # gh api -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-28" /repos/changty97/personalsite/actions/secrets/public-key
         # echo "secret=$(echo $GENERATED_SECRET | base64 -w0)" >> $GITHUB_ENV
     #     # echo "our-secret=$secret" >> $GITHUB_OUTPUT
     # outputs:
