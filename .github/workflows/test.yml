@@ -8,13 +8,13 @@ on:
     #     value: ${{ jobs.github-secrets.outputs.read-secret }}
   
 env:
-   GH_TOKEN: ${{ github.token }}
+   GH_TOKEN: ${{ secrets.token }}
 
 jobs:
   # Job 1: Read a secret and encrypt
   github-secrets:
     runs-on: [ubuntu-latest]
-    # environment: development
+    environment: development
     permissions: write-all
     name: A Job to read a secret
     steps:
