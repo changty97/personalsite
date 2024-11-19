@@ -2,10 +2,10 @@ name: Passing Secrets
 on:
   # Allows you to run the workflow manually from Actions tab
   workflow_call:
-    outputs:
-      CAAS_USERNAME:
-        description: "The CAAS Username"
-        value: ${{ jobs.github-secrets.outputs.read-secret }}
+    # outputs:
+    #   CAAS_USERNAME:
+    #     description: "The CAAS Username"
+    #     value: ${{ jobs.github-secrets.outputs.read-secret }}
   
 env:
    GH_TOKEN: ${{ github.token }}
@@ -24,15 +24,11 @@ jobs:
         run: |
           GENERATED_SECRET="test"
           echo "::add-mask::$GENERATED_SECRET"
-          echo "secret=$(echo $GENERATED_SECRET | base64 -w0)" >> $GITHUB_ENV
-          echo "our-secret=$secret" >> $GITHUB_OUTPUT
-      - id: secret
-        run: |
-          chmod +x ./.github/test.sh ; eval "$(./.github/test.sh)"
-          echo "secret1=$RETRIEVED_SECRET" >> $GITHUB_OUTPUT
-          echo "We retrieved our masked secret: $secret1"
-    outputs:
-      read-secret: ${{ steps.secret.outputs.secret1 }}
+          gh secret set MYSECRET --body "$GENERATED_SECRET"
+        # echo "secret=$(echo $GENERATED_SECRET | base64 -w0)" >> $GITHUB_ENV
+    #     # echo "our-secret=$secret" >> $GITHUB_OUTPUT
+    # outputs:
+    #   read-secret: ${{ steps.secret.outputs.secret1 }}
 
   # Job 2: Use secret
   # use-secret:
