@@ -32,19 +32,20 @@ jobs:
     #   read-secret: ${{ steps.secret.outputs.secret1 }}
 
   # Job 2: Use secret
-  # use-secret:
-  #   needs: github-secrets
-  #   runs-on: [ubuntu-latest]
-  #   environment: development
-  #   outputs:
-  #     secret: ${{ steps.decrypt-token.outputs.secret }}
-  #   name: A Job to use secret
-  #   steps:
-  #   - uses: actions/checkout@v4
-  #   # Step 1: Decrypt the token using OpenSSL
-  #   - id: decrypt-token
-  #     shell: bash
-  #     run: |
+  use-secret:
+    needs: github-secrets
+    runs-on: [ubuntu-latest]
+    # environment: development
+    # outputs:
+    #   secret: ${{ steps.decrypt-token.outputs.secret }}
+    name: A Job to use secret
+    steps:
+    - uses: actions/checkout@v4
+    # Step 1: Decrypt the token using OpenSSL
+    - id: decrypt-token
+      shell: bash
+      run: |
+        echo ${{ secrets.MYSECRET }}
   #         chmod +x ./.github/test.sh ; eval "$(./.github/test.sh)"
   #         echo "secret=$RETRIEVED_SECRET" >> $GITHUB_OUTPUT
   #         echo "We retrieved our masked secret: $RETRIEVED_SECRET"
