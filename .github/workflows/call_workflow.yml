@@ -28,7 +28,7 @@ jobs:
      needs: call-passing-secrets
      runs-on: [ubuntu-latest]
      steps:
-        - run: echo ${{ needs.call-passing-secrets.outputs.CAAS_USERNAME }} && echo ${{ env.secret }}
+        - run: echo ${{ env.MYSECRET }}
      
    call-lint:
      if: github.event_name == 'pull_request_review'
