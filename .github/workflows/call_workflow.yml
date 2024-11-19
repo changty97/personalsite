@@ -2,22 +2,37 @@ name: CI Requirements Check
 
 on:
   push:
+  pull_request_review:
 
 jobs:
    required-paths:
      runs-on: [ubuntu-latest]
      strategy:
        matrix:
-          discipline: [ public, src]
+          discipline: [ public ]
+     outputs:
+       CAAS_USERNAME: ${{ steps.read-secret.outputs.our-secret }}
      steps:
        - uses: actions/checkout@v4
          with:
            fetch-depth: 0
 
        - name: Get Required Directories
-         run: echo "REQUIRED_PATH=$(git diff --name-only main...${{ GITHUB_SHA }} | grep -c >&1 ${{ matrix.discipline }})" >> $GITHUB_ENV
+         run: echo "REQUIRED_PATH=$(git diff --name-only orgin/main...${{ github.sha }} | grep -c >&1 ${{ matrix.discipline }})" >> $GITHUB_ENV
 
+   call-passing-secrets:
+     uses: ./.github/workflows/test.yml
+     secrets: inherit # <= this one
+
+   test:
+     needs: call-passing-secrets
+     runs-on: [ubuntu-latest]
+     steps:
+        - run: echo ${{ env.MYSECRET }}
+     
    call-lint:
-     # needs: required-paths
+     if: github.event_name == 'pull_request_review'
+     needs: required-paths
      # if: ${{ success() && env.REQUIRED_PATH >= 1 }}
-     uses: ${{ github.workspace }}/.github/workflows/lint.yml
+     uses: ./.github/workflows/lint.yml
+     secrets: inherit # <= this one

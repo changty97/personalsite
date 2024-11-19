@@ -1,0 +1,55 @@
+name: Passing Secrets
+on:
+  # Allows you to run the workflow manually from Actions tab
+  workflow_call:
+    # outputs:
+    #   CAAS_USERNAME:
+    #     description: "The CAAS Username"
+    #     value: ${{ jobs.github-secrets.outputs.read-secret }}
+  
+env:
+   GH_TOKEN: ${{ secrets.GH_TOKEN }}
+
+jobs:
+  # Job 1: Read a secret and encrypt
+  github-secrets:
+    runs-on: [ubuntu-latest]
+    environment: development
+    permissions: write-all
+    name: A Job to read a secret
+    steps:
+      - uses: actions/checkout@v4
+      - id: read-secret
+        shell: bash
+        run: |
+          GENERATED_SECRET="t1e2s3t33321z"
+          echo "::add-mask::$GENERATED_SECRET"
+          gh secret set MYSECRET --body "$GENERATED_SECRET"
+        # gh api -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-28" /repos/changty97/personalsite/actions/secrets/public-key
+        # echo "secret=$(echo $GENERATED_SECRET | base64 -w0)" >> $GITHUB_ENV
+    #     # echo "our-secret=$secret" >> $GITHUB_OUTPUT
+    # outputs:
+    #   read-secret: ${{ steps.secret.outputs.secret1 }}
+
+  # Job 2: Use secret
+  use-secret:
+    needs: github-secrets
+    runs-on: [ubuntu-latest]
+    # environment: development
+    # outputs:
+    #   secret: ${{ steps.decrypt-token.outputs.secret }}
+    name: A Job to use secret
+    steps:
+    - uses: actions/checkout@v4
+    # Step 1: Decrypt the token using OpenSSL
+    - id: decrypt-token
+      shell: bash
+      run: |
+        echo ${{ secrets.MYSECRET }}
+  #         chmod +x ./.github/test.sh ; eval "$(./.github/test.sh)"
+  #         echo "secret=$RETRIEVED_SECRET" >> $GITHUB_OUTPUT
+  #         echo "We retrieved our masked secret: $RETRIEVED_SECRET"
+      # RETRIEVED_SECRET="${{ needs.github-secrets.outputs.read-secret }}"
+      # echo "::add-mask::$RETRIEVED_SECRET"
+      # echo "secret=$RETRIEVED_SECRET" >> $GITHUB_OUTPUT
+      # echo "We retrieved our masked secret: $RETRIEVED_SECRET"
