@@ -5,7 +5,6 @@ import {
   HashRouter
 } from "react-router-dom";
 import Home from "./Home";
-import Resume from "./Resume";
 import Project from "./Project";
 import Admin from "./Admin";
 
@@ -18,7 +17,6 @@ function App() {
         <div>
           <div className="content">
             <Route exact path="/" component={Home}/>
-            <Route path="/resume" component={Resume}/>
             <Route path="/projects" component={Project}/>
             <Route path="/admin" component={Admin}/>
           </div>
