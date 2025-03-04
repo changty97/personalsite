@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: tyler-chang.com-pod
+  labels:
+    app: tyler-chang.com
+spec:
+  containers:
+  - name: perosnalsite-container
+    image: tyler-chang.com:latest
+    ports:
+      - containerPort: 8080
