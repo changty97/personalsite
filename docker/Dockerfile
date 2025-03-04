@@ -1,19 +1,19 @@
-FROM node:14 as build
+# 1. Build our Node app
+FROM node:14.16.1-alpine as builder
 
 WORKDIR /app
-
-COPY package*.json ./
+COPY package.json package-lock.json ./
 
 RUN npm install
+COPY . ./
+RUN npm run build -- --prod
 
-COPY . .
-
-RUN npm run build
-
+# 2. Deploy our Node app to NGINX
 FROM nginx:alpine
 
-COPY --from=build /app/build /usr/share/nginx/html
+## Replace the default nginx index page with our Angular app
+RUN rm -rf /usr/share/nginx/html/*
+COPY --from=builder /app/build /usr/share/nginx/html
 
 EXPOSE 80
-
-CMD ["nginx", "-g", "daemon off;"]
+ENTRYPOINT ["nginx", "-g", "daemon off;"]
