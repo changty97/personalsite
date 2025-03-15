@@ -48,7 +48,7 @@ class Home extends Component {
         <div className="center">
           <p>
             <img alt="OWP Logo" className="logo1" src="/owp-logo.png" /><br/>
-            <b>Office of Water Programs</b><br/>
+            <b>Software Developer Intern</b><br/>
             <i>Jan 2019 - May 2020</i><br/>
           </p>
             ● Developed secure APIs and front-end applications using JavaScript and PHP, ensuring compliance with security and performance standards.<br/>
