@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: tyler-chang-pod
+  labels:
+    app: tyler-chang
+spec:
+  containers:
+  - name: tyler-chang-container
+    image: registry.changtyler.com/tyler-chang.com
+    ports:
+      - containerPort: 80
+  imagePullSecrets:
+  - name: registrychangtyler
