@@ -155,3 +155,51 @@ a:hover {
     width: 100%;
   }
 }
+
+.hori-timeline .events {
+  border-top: 3px solid rgb(255, 255, 255);
+}
+
+.hori-timeline .events 
+.event-list {
+  display: block;
+  position: relative;
+  text-align: center;
+  margin-right: 0;
+}
+
+.hori-timeline .events 
+.event-list:before {
+  content: "";
+  position: absolute;
+  height: 36px;
+  border-right: 2px dashed #fdfdfd;
+  top: 0;
+}
+
+.hori-timeline .events .event-list 
+.event-date {
+  position: absolute;
+  top: 38px;
+  left: 0;
+  right: 0;
+  width: 75px;
+  margin: 0 auto;
+  border-radius: 4px;
+  padding: 2px 4px;
+}
+
+
+@media (min-width: 1140px) {
+  .hori-timeline .events 
+  .event-list {
+      display: inline-block;
+      width: 24%;
+      padding-top: 45px;
+  }
+
+  .hori-timeline .events 
+  .event-list .event-date {
+      top: -12px;
+  }
+}

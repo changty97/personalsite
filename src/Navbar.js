@@ -8,7 +8,7 @@ const Navbar = (props) => (
             <img alt="Tyler Headshot" className="circular--square center" src="/headshot.png" />
             <h1 className="center">Tyler Chang</h1>
         </div>
-        <hr></hr>
+        {/* <hr></hr> */}
         <div className="center">
             <ul className="topnav">
             <li><NavLink to="/">HOME</NavLink></li>
