@@ -5,36 +5,71 @@ class Project extends Component {
   render() {
     return (
         <Navbar>
-            <div className="center">
-                <h2>PROJECTS</h2>
-                <h3>changberwedding.com</h3>
-                    <p style={{textAlign:'left'}}>
-                        Created a website for my wedding that took place on September 26, 2020.<br></br>
-                        <a href="https://changberwedding.com">https://changberwedding.com</a>
-                    </p><br></br>
-                <h3>Flashcard Web Application</h3>
-                    <p style={{textAlign:'left'}}>
-                        Created a flashcard web application that would help students study for tests. <br></br>
-                        <a href="https://github.com/changty97/Flashcard-App">Github Link</a>
-                    </p><br></br>
-                <h3>Patient Assistive Tracking System (P.A.T.S)</h3>
-                    <p style={{textAlign:'left'}}>
-                        Lead software development as part of high school senior project (Spring 2016). Designed a tracking wrist watch that allows hospital staff to keep track of patients.
-                    </p>
+            <div class="cards">
+                <article class="card">
+                    <header>
+                    <h2>Patient Assistive Tracking System (P.A.T.S)</h2>
+                    </header>
+
                     <img alt="PATS #1" src="/pats1.JPG" className="pats"></img>
-                    <img alt="PATS #2" src="/pats2.JPG" className="pats"></img>
-                    <img alt="PATS #3" src="/pats3.JPG" className="pats"></img>
-                    <br></br>
-                <h3>CSC 174 Database Project</h3>
-                    <p style={{textAlign:'left'}}>
-                        Created a website connected to a MySQL database for CSC 174 Advanced Database. <br></br>
-                        <a href="http://ec2-3-142-143-53.us-east-2.compute.amazonaws.com/#/login">Offical Project</a>
-                    </p><br></br>
-                <h3>CSC 190 Senior Project</h3>
-                    <p style={{textAlign:'left'}}>
-                        Currently working on project that allows our users to track stocks. Hosted on AWS using nginx to serve the webpage.<br></br>
-                        <a href="http://tradealysis.tk/">Offical Project</a>
-                    </p><br></br>
+                    {/* <img alt="PATS #2" src="/pats2.JPG" className="pats"></img>
+                    <img alt="PATS #3" src="/pats3.JPG" className="pats"></img> */}
+                    <div class="content">
+                    <p>
+                        Lead software development as part of high school senior project (Spring 2016). Designed a tracking wrist watch that allows hospital staff to keep track of patients.
+                        Utilized C++ for the tracking module.
+                    </p>
+                    </div>
+                </article>
+
+                <article class="card">
+                    <header>
+                    <h3>changberwedding.com</h3>
+                    </header>
+
+                    <img
+                    src="/changberwedding.png"
+                    alt="changberwedding.com" />
+                    <div class="content">
+                    <p>
+                        Currently working on project that allows our users to track stocks. Hosted on AWS using nginx to serve the webpage.
+                    </p>
+                    </div>
+                </article>
+
+                <article class="card">
+                    <header>
+                    <h2>Flashcard Web Application</h2>
+                    </header>
+
+                    <div class="content">
+                    <p>
+                        Created a flashcard web application that would help students study for Water Treatment tests.
+                    </p>
+                    </div>
+                </article>
+                <article class="card">
+                    <header>
+                    <h2>CSC 174 Database Project</h2>
+                    </header>
+
+                    <div class="content">
+                    <p>
+                        Created a website connected to a MySQL database for CSC 174 Advanced Database.
+                    </p>
+                    </div>
+                </article>
+                <article class="card">
+                    <header>
+                    <h2>Tradealysis</h2>
+                    </header>
+
+                    <div class="content">
+                    <p>
+                        Developed a project that allows our users to track stocks. Hosted on AWS using nginx to serve the webpage.
+                    </p>
+                    </div>
+                </article>
             </div>
         </Navbar>
     );
