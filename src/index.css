@@ -112,8 +112,8 @@ hr {
   text-align: center;
   padding: 14px 5px;
   text-decoration: none;
-  font-size: 17px;
-  width: 16%;
+  font-size: 25px;
+  width: 33%;
 }
 
 .topnav a:hover {
@@ -142,6 +142,14 @@ a:hover {
 .pats {
   width: 30%;
   margin: 5px;
+}
+
+@media screen and (min-width: 330px) {
+  .cards {
+    margin: 1em 50px;
+    grid-template-columns: repeat(1, minmax(230px, 1fr));
+    width: auto;
+  }
 }
 
 @media screen and (max-width: 600px) {
@@ -202,13 +210,13 @@ a:hover {
   .event-list .event-date {
       top: -12px;
   }
-}
 
-.cards {
-  margin: 1em 100px;
-  display: grid;
-  grid-template-columns: repeat(5, minmax(230px, 1fr));
-  grid-gap: 20px;
+  .cards {
+    margin: 1em 100px;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(230px, 1fr));
+    grid-gap: 20px;
+  }
 }
 
 .card {
@@ -230,4 +238,17 @@ a:hover {
 
 .card .content {
   padding: 0.5rem;
+}
+
+.button {
+  background-color: #ddd;
+  border: none;
+  color: black;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 16px;
 }
