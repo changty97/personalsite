@@ -112,8 +112,8 @@ hr {
   text-align: center;
   padding: 14px 5px;
   text-decoration: none;
-  font-size: 17px;
-  width: 16%;
+  font-size: 25px;
+  width: 33%;
 }
 
 .topnav a:hover {
@@ -144,6 +144,14 @@ a:hover {
   margin: 5px;
 }
 
+@media screen and (min-width: 330px) {
+  .cards {
+    margin: 1em 50px;
+    grid-template-columns: repeat(1, minmax(230px, 1fr));
+    width: auto;
+  }
+}
+
 @media screen and (max-width: 600px) {
   .topnav a {
     margin: 0 50px 0 20px;
@@ -154,4 +162,93 @@ a:hover {
   .pats {
     width: 100%;
   }
+}
+
+.hori-timeline .events {
+  border-top: 3px solid rgb(255, 255, 255);
+}
+
+.hori-timeline .events 
+.event-list {
+  display: block;
+  position: relative;
+  text-align: center;
+  margin-right: 0;
+}
+
+.hori-timeline .events 
+.event-list:before {
+  content: "";
+  position: absolute;
+  height: 36px;
+  border-right: 2px dashed #fdfdfd;
+  top: 0;
+}
+
+.hori-timeline .events .event-list 
+.event-date {
+  position: absolute;
+  top: 38px;
+  left: 0;
+  right: 0;
+  width: 75px;
+  margin: 0 auto;
+  border-radius: 4px;
+  padding: 2px 4px;
+}
+
+
+@media (min-width: 1140px) {
+  .hori-timeline .events 
+  .event-list {
+      display: inline-block;
+      width: 24%;
+      padding-top: 45px;
+  }
+
+  .hori-timeline .events 
+  .event-list .event-date {
+      top: -12px;
+  }
+
+  .cards {
+    margin: 1em 100px;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(230px, 1fr));
+    grid-gap: 20px;
+  }
+}
+
+.card {
+  border-radius: 3px;
+  display: grid;
+  grid-template-rows: max-content 200px 1fr;
+}
+
+.card img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.card h2 {
+  margin: 0;
+  padding: 0.5rem;
+}
+
+.card .content {
+  padding: 0.5rem;
+}
+
+.button {
+  background-color: #ddd;
+  border: none;
+  color: black;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 16px;
 }

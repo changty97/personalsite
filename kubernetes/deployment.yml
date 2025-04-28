@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tyler-chang-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: tyler-chang
+  template:
+    metadata:
+      labels:
+        app: tyler-chang
+    spec:
+      containers:
+      - name: tyler-chang-container
+        image: registry.changtyler.com/tyler-chang.com
+        ports:
+          - containerPort: 80
+      imagePullSecrets:
+      - name: registrychangtyler
