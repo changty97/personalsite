@@ -1,0 +1,65 @@
+name: Dispatch Workflow
+
+on:
+ workflow_dispatch:
+   inputs:
+     repo_name:
+       description: 'Full repo name (e.g. org/repo-a)'
+       required: true
+     release_number:
+       description: 'Git tag name for the release (e.g. v1.2.3 or 1.2.3)'
+       required: true
+     platform:
+       description: 'Target platform (ios or android)'
+       required: true
+       type: choice
+       options:
+         - ios
+         - android
+
+jobs:
+   validate-tag:
+       runs-on: [self-hsoted, Linux]
+       steps:
+           - name: Validate repository exists
+             run: |
+               echo "🔍 Validating repo '${{ github.event.inputs.repo_name }}'..."
+               curl -s -H "Authorization: Bearer ${{ secrets.GH_PAT }}" \
+                   -H "Accept: application/vnd.github+json" \
+                   https://api.github.com/repos/${{ github.event.inputs.repo_name }} \
+                   | jq -e '.id' > /dev/null || {
+                       echo "❌ Repository not found: ${{ github.event.inputs.repo_name }}"
+                       exit 1
+                   }
+               echo "✅ Repo found."
+
+
+           - name: Validate tag exists
+             run: |
+               echo "🔍 Validating tag '${{ github.event.inputs.release_number }}'..."
+               curl -s -H "Authorization: Bearer ${{ secrets.GH_PAT }}" \
+                   -H "Accept: application/vnd.github+json" \
+                   https://api.github.com/repos/${{ github.event.inputs.repo_name }}/git/ref/tags/${{ github.event.inputs.release_number }} \
+                   | jq -e '.ref' > /dev/null || {
+                       echo "❌ Tag not found: ${{ github.event.inputs.release_number }}"
+                       exit 1
+                   }
+               echo "✅ Tag exists."
+
+   call-ios:
+       if: ${{ github.event.inputs.platform == 'ios' }}
+       uses: ./.github/workflows/ios_build_ipa.yml
+       with:
+         repo_name: ${{ github.event.inputs.repo_name }}
+         release_tag: ${{ github.event.inputs.release_number }}
+       secrets:
+           GH_PAT: ${{ secrets.GH_PAT }}
+
+
+   # TODO: Add Android workflow
+
+
+   # TODO: Add Windows workflow
+
+
+   # TODO: Add Chrome Exstention workflow
