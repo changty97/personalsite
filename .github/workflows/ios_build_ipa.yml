@@ -1,0 +1,33 @@
+name: Build iOS IPA
+
+on:
+ workflow_call:
+   inputs:
+     repo_name:
+       required: true
+       type: string
+     release_number:
+       required: true
+       type: string
+   secrets:
+      GH_PAT:
+        description: "A tocketn 
+
+jobs:
+   validate-tag:
+       runs-on: [macos-latest]
+       steps:
+           - name: Checkout tag from source repo
+             uses: actions/checkout@v4
+             with:
+               repository: ${{ github.event.inputs.repo_name }}
+               ref: ${{ github.event.inputs.release_number }}
+               token: ${{ secrets.GH_PAT }}
+
+           - name: Install bundle
+             run: bundle install
+
+
+
+
+
