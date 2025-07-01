@@ -11,7 +11,8 @@ on:
        type: string
    secrets:
       GH_PAT:
-        description: "A tocketn 
+        description: "A token passed from the caller"
+        required: true
 
 jobs:
    validate-tag:
