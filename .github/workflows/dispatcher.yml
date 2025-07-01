@@ -51,7 +51,7 @@ jobs:
        uses: ./.github/workflows/ios_build_ipa.yml
        with:
          repo_name: ${{ github.event.inputs.repo_name }}
-         release_tag: ${{ github.event.inputs.release_number }}
+         release_number: ${{ github.event.inputs.release_number }}
        secrets:
            GH_PAT: ${{ secrets.GH_PAT }}
 
