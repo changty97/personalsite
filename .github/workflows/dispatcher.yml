@@ -19,7 +19,7 @@ on:
 
 jobs:
    validate-tag:
-       runs-on: [self-hsoted, Linux]
+       runs-on: [ubuntu-latest]
        steps:
            - name: Validate repository exists
              run: |
