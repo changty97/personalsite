@@ -47,6 +47,7 @@ jobs:
                echo "✅ Tag exists."
 
    call-ios:
+       needs: validate-tag
        if: ${{ github.event.inputs.platform == 'ios' }}
        uses: ./.github/workflows/ios_build_ipa.yml
        with:
