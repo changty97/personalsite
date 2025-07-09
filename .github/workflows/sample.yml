@@ -1,14 +1,12 @@
-name: CI Sample
+name: Trigger Central Automation
 
 on:
-  push:
+  release:
+    types: [published]
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '14'
+  trigger-central-workflow:
+    uses: chnagtyler/automation/.github/workflows/core-automation.yml@main
+    with:
+      release_tag: ${{ github.event.release.tag_name }}
+      source_repo: ${{ github.repository }}
