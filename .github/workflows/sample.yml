@@ -1,6 +1,7 @@
 name: Trigger Central Automation
 
 on:
+  push:
   release:
     types: [published]
 
