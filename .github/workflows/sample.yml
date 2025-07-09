@@ -1,9 +1,7 @@
 name: Trigger Central Automation
 
 on:
-  push:
   release:
-    types: [published]
 
 jobs:
   trigger-central-workflow:
