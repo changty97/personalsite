@@ -1,7 +1,8 @@
 name: Trigger Central Automation
 
 on:
-  release:
+ push:
+    tags: [ 'v*.*.*' ]
 
 jobs:
   trigger-central-workflow:
