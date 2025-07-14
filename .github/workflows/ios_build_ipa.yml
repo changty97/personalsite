@@ -17,7 +17,7 @@ on:
 
 jobs:
    validate-tag:
-       runs-on: [macos-sequoia]
+       runs-on: [self-hosted, macos-sequoia]
        steps:
            - name: Checkout tag from source repo
              uses: actions/checkout@v4
