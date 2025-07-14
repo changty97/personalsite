@@ -1,18 +1,19 @@
 name: Build iOS IPA
 
 on:
- workflow_call:
-   inputs:
-     repo_name:
-       required: true
-       type: string
-     release_number:
-       required: true
-       type: string
-   secrets:
-      GH_PAT:
-        description: "A token passed from the caller"
-        required: true
+ push:
+ # workflow_call:
+ #   inputs:
+ #     repo_name:
+ #       required: true
+ #       type: string
+ #     release_number:
+ #       required: true
+ #       type: string
+ #   secrets:
+ #      GH_PAT:
+ #        description: "A token passed from the caller"
+ #        required: true
 
 jobs:
    validate-tag:
