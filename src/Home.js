@@ -6,62 +6,117 @@ class Home extends Component {
     return (
       <Navbar>
         <div className="center">
-          <h2>Introduction</h2>
-            <p>
-            Hi, my name is Tyler. I enjoy learning new technologies and expanding my skill set, particularly in Artificial Intelligence (AI) and building fun projects with Arduino. Professionally, I specialize in DevOps and automation, but I also have experience in full-stack web development and embedded systems. I hold a Bachelor's Degree in Computer Science from California State University, Sacramento. For some of my latest projects checkout out my <a href="https://github.com/changty97" className="link">GitHub</a>.
-            </p>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div>
+                        <div class="card-body">
+                            <div class="hori-timeline" dir="ltr">
+                                <ul class="list-inline events">
+                                    <li class="list-inline-item event-list">
+                                        <div class="px-4">
+
+                                        <img alt="Pizza Guys Logo" className="logo1" src="/pizza-guys-logo.png" />
+                                        <h5 class="font-size-16 text-warning">2017 - IT Support Technician </h5>
+                                        </div>
+
+                                    </li>
+                                    <li class="list-inline-item event-list">
+                                        <div class="px-4">
+                                        <img alt="OWP Logo" className="logo1" src="/owp-logo.png" />
+                                        <h5 class="font-size-16 text-warning">2019 - Software Developer Intern</h5>
+                                        </div>
+                                    </li>
+                                    <li class="list-inline-item event-list">
+                                        <div class="px-4">
+                                        <img alt="Intel Logo" className="logo1" src="/intel-logo.png" />
+                                        <h5 class="font-size-16 text-warning">2020 - DevOps Engineer Intern</h5>
+                                        </div>
+                                    </li>
+                                    <li class="list-inline-item event-list">
+                                        <div class="px-4">
+                                        <img alt="Intel Logo" className="logo1" src="/intel-logo.png" />
+                                        <h5 class="font-size-16 text-warning">2022 - System Software Engineer</h5>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+        <div class="cards">
+                <article class="card">
+                    <header>
+                    <h2>Patient Assistive Tracking System (P.A.T.S)</h2>
+                    </header>
+
+                    <img alt="PATS #1" src="/pats1.JPG" className="pats"></img>
+                    {/* <img alt="PATS #2" src="/pats2.JPG" className="pats"></img>
+                    <img alt="PATS #3" src="/pats3.JPG" className="pats"></img> */}
+                    <div class="content">
+                    <p>
+                        Lead software development as part of high school senior project (Spring 2016). Designed a tracking wrist watch that allows hospital staff to keep track of patients.
+                        Utilized C++ for the tracking module.
+                    </p>
+                    </div>
+                </article>
+
+                <article class="card">
+                    <header>
+                    <h3>changberwedding.com</h3>
+                    </header>
+
+                    <img
+                    src="/changberwedding.png"
+                    alt="changberwedding.com" />
+                    <div class="content">
+                    <p>
+                        Currently working on project that allows our users to track stocks. Hosted on AWS using nginx to serve the webpage.
+                    </p>
+                    </div>
+                </article>
+
+                <article class="card">
+                    <header>
+                    <h2>Flashcard Web Application</h2>
+                    </header>
+
+                    <div class="content">
+                    <p>
+                        Created a flashcard web application that would help students study for Water Treatment tests.
+                    </p>
+                    </div>
+                </article>
+                <article class="card">
+                    <header>
+                    <h2>CSC 174 Database Project</h2>
+                    </header>
+
+                    <div class="content">
+                    <p>
+                        Created a website connected to a MySQL database for CSC 174 Advanced Database.
+                    </p>
+                    </div>
+                </article>
+                <article class="card">
+                    <header>
+                    <h2>Tradealysis</h2>
+                    </header>
+
+                    <div class="content">
+                    <p>
+                        Developed a project that allows our users to track stocks. Hosted on AWS using nginx to serve the webpage.
+                    </p>
+                    </div>
+                </article>
+            </div>
         <div className="center">
-          <h2>Professional History</h2>
-          <p>
-            <img alt="Intel Logo" className="logo1" src="/intel-logo.png" /><br/>
-            <b>System Software Engineer</b><br/>
-            <i>Jan 2022 - Present</i><br/>
-          </p>
-            ● Developed Bash automation scripts with GNU Make to streamline build, deployment,
-            and monitoring tasks.<br/>
-            ● Developed a multithreaded Python framework for cache coherency testing, improving
-            validation efficiency.<br/>
-            ● Collaborated with cross-functional teams to design CI/CD using GitHub Actions,
-            optimizing QA unit testing and reducing deployment time by 30%.<br/>
-            ● Supported distributed software systems by deploying and managing Kubernetes clusters
-            for validation environments, ensuring seamless integration and scalability.<br/>
-            ● Managed and optimized Linux-based environments, including VMware virtual machines
-            and bare-metal servers for pre/post-silicon validation.<br/>
-            ● Developed, maintained, and deployed Docker images to compile x86, RISC-V, and
-            ARM pre-silicon tests, utilizing Harbor as a registry.<br/>
-        </div>
-        <div className="center">
-          <p>
-            <b>DevOps Engineer Intern</b><br/>
-            <i>Jan 2020 - Jan 2022</i><br/>
-          </p>
-            ● Deployed production code to Kubernetes clusters using GitLab CI and Helm, improving
-            performance and scalability.<br/>
-            ● Enhanced monitoring and logging with Splunk and New Relic, improving debugging
-            efficiency.<br/>
-            ● Automated infrastructure provisioning with Terraform, streamlining containerized
-            service deployments.<br/>
-            ● Developed Ansible playbooks for provisioning and configuration management across
-            multi-site environments.<br/>
-        </div>
-        <div className="center">
-          <p>
-            <img alt="OWP Logo" className="logo1" src="/owp-logo.png" /><br/>
-            <b>Software Developer Intern</b><br/>
-            <i>Jan 2019 - May 2020</i><br/>
-          </p>
-            ● Developed secure APIs and front-end applications using JavaScript and PHP, ensuring compliance with security and performance standards.<br/>
-            ● Created a flashcard application using Vue.JS, HTML, and CSS, enhancing the company's educational offerings.<br/>
-        </div>
-        <div className="center">
-          <p>
-            <img alt="Pizza Guys Logo" className="logo1" src="/pizza-guys-logo.png" /><br/>
-            <b>I.T. Support Technician</b><br/>
-            <i>July 2017 - Jan 2020</i><br/>
-          </p>
-            ● Managed the installation and upgrade of computer systems across 20+ franchise locations, ensuring network reliability and security.<br/>
-            ● Provided ongoing IT support for 66 franchise/corporate locations, resolving technical issues and minimizing downtime.<br/>
+            <ul className="topnav">
+            <li><a href="https://github.com/changty97" className="fa fa-github"> </a></li>
+            <li><a href="https://www.linkedin.com/in/tyler-chang" className="fa fa-linkedin"> </a></li>
+            <li><a href="mailto: chang.ty97@gmail.com" className="fa fa-google"> </a></li>
+            </ul>
         </div>
       </Navbar>
     );
