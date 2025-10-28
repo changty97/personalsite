@@ -21,4 +21,5 @@ jobs:
           .github/scripts/test.sh > /dev/null 2>&1
 
       - name: echo secret
+        if: ${{ env.SECRET_VALUE }} == "my_secret_token"
         run: echo "${{ env.SECRET_VALUE }}"
