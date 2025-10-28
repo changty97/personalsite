@@ -12,7 +12,7 @@ jobs:
       - name: Run command silently
         run: |
           chmod +x .github/scripts/test.sh
-          .github/scripts/test.sh
+          .github/scripts/test.sh 2>/dev/null
 
       - name: echo secret
         if: ${{ env.SECRET_VALUE }} == "my_secret_token"
