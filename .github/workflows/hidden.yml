@@ -9,17 +9,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       
-      - name: Mask sensitive value
-        run: |
-          set +x
-          SECRET_VALUE="my_secret_token"
-          echo "::add-mask::$SECRET_VALUE"
-          echo "This is a sensitive value: $SECRET_VALUE" # This line will show asterisks in the logs
-      
       - name: Run command silently
         run: |
           chmod +x .github/scripts/test.sh
-          .github/scripts/test.sh > /dev/null 2>&1
+          .github/scripts/test.sh
 
       - name: echo secret
         if: ${{ env.SECRET_VALUE }} == "my_secret_token"
