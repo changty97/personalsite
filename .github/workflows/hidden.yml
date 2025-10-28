@@ -11,6 +11,7 @@ jobs:
       
       - name: Mask sensitive value
         run: |
+          set +x
           SECRET_VALUE="my_secret_token"
           echo "::add-mask::$SECRET_VALUE"
           echo "This is a sensitive value: $SECRET_VALUE" # This line will show asterisks in the logs
