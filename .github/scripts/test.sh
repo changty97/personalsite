@@ -1,3 +1,4 @@
 #!/bin/bash
-export SECRET_VALUE="my_secret_token"
+echo SECRET_VALUE="my_secret_token" >> $GITHUB_ENV
+echo "::add-mask::$SECRET_VALUE"
 echo $SECRET_VALUE
