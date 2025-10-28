@@ -7,12 +7,15 @@ jobs:
   my-job:
     runs-on: ubuntu-latest
     steps:
+      - uses: action/checkout@v4
+      
       - name: Mask sensitive value
         run: |
           SECRET_VALUE="my_secret_token"
-          echo "::add-mask::$SECRET_VALUE" > /dev/null 2>&1
+          echo "::add-mask::$SECRET_VALUE"
           echo "This is a sensitive value: $SECRET_VALUE" # This line will show asterisks in the logs
       
       - name: Run command silently
         run: |
-          echo "This output will be hidden." > /dev/null 2>&1
+          chmod +x .github/scripts/test.sh
+          .github/scripts/test.sh > /dev/null 2>&1
