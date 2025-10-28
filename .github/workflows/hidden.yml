@@ -19,3 +19,6 @@ jobs:
         run: |
           chmod +x .github/scripts/test.sh
           .github/scripts/test.sh > /dev/null 2>&1
+
+      - name: echo secret
+        run: echo "${{ env.SECRET_VALUE }}"
