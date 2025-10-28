@@ -9,6 +9,4 @@ echo $SECRET_VALUE2
 
 if [[ -z "${SECRET_VALUE}"]]; then
   exit 1
-else
-  exit 2
 fi
